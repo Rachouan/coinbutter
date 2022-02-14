@@ -1,16 +1,18 @@
+const { get } = require("express/lib/response");
 const { Schema, model } = require("mongoose");
 
 const transactionSchema = new Schema(
   {
-    buyPrice: Number,
-    amnount: Number,
+    buyPrice: { type: Number, default: 1 }, //default : get API
+    amount: { type: Number, required: true },
     total: Number,
-    date: Date, 
-    comment: String
+    transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
+    comment: String,
   },
-  {
-    timestamps: true,
-  }
+  created: {
+    type: Date,
+    default: Date.now
+  },
 );
 
 const Transaction = model("Transaction", transactionSchema);
