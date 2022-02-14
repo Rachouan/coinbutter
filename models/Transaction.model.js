@@ -8,11 +8,9 @@ const transactionSchema = new Schema(
     total: Number,
     transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
     comment: String,
+    created: { type: Date, default: Date.now },
   },
-  created: {
-    type: Date,
-    default: Date.now
-  },
+  
 );
 
 const Transaction = model("Transaction", transactionSchema);
