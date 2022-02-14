@@ -10,7 +10,10 @@ const transactionSchema = new Schema(
     comment: String,
     created: { type: Date, default: Date.now },
   },
-  
+  {
+    // this second object adds extra properties: `createdAt` and `updatedAt`
+    timestamps: true
+  }
 );
 
 const Transaction = model("Transaction", transactionSchema);
