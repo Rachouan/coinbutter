@@ -2,7 +2,11 @@ const { Schema, model } = require("mongoose");
 
 const transactionSchema = new Schema(
   {
-    
+    buyPrice: Number,
+    amnount: Number,
+    total: Number,
+    date: Date, 
+    comment: String
   },
   {
     timestamps: true,
