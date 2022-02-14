@@ -8,11 +8,8 @@ const transactionSchema = new Schema(
     total: Number,
     transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
     comment: String,
+    created: { type: Date, default: Date.now },
   },
-  {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
-    timestamps: true
-  }
   
 );
 
