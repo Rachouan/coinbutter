@@ -9,10 +9,11 @@ const transactionSchema = new Schema(
     transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
     comment: String,
   },
-  created: {
-    type: Date,
-    default: Date.now
-  },
+  {
+    // this second object adds extra properties: `createdAt` and `updatedAt`
+    timestamps: true
+  }
+  
 );
 
 const Transaction = model("Transaction", transactionSchema);

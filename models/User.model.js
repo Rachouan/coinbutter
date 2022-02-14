@@ -4,14 +4,27 @@ const { Schema, model } = require("mongoose");
 const userSchema = new Schema(
   {
     email: {
-      type: String,
-      unique: true,
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        required: 'Email address is required',
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
     },
     username: {
       type: String,
       unique: true,
     },
-    password: String,
+    firstName: String,
+    lastName: String,
+    profileImage :{
+      type: String,
+      default: '/images/profile/default.jpg'
+    },
+    passwordHash: {
+      type: String,
+      required: 'Password is required',
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
