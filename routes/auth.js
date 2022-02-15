@@ -19,18 +19,17 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { email, password } = req.body;
+  const { email,firstName,lastName, password } = req.body;
 
   if (!email) {
     return res
       .status(400)
-      .render("auth/signup", { errorMessage: "Please provide your email." });
+      .render("auth/signup", { errorMessage: {email: "Please provide your email."}, form:{ email,firstName,lastName, password }});
   }
 
   if (password.length < 8) {
     return res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
+      errorMessage: {password: "Your password needs to be at least 8 characters long."}, form:{ email,firstName,lastName, password }});
   }
 
   //   ! This use case is using a regular expression to control for special characters and min length
@@ -38,11 +37,10 @@ router.post("/signup", isLoggedOut, (req, res) => {
 
   if (!regex.test(password)) {
     return res.status(400).render("signup", {
-      errorMessage:
-        "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-    });
+      errorMessage: { password: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter." }, form:{ email,firstName,lastName, password }});
   }
   
+  console.log({ email,firstName,lastName, password });
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ email }).then((found) => {
@@ -50,7 +48,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     if (found) {
       return res
         .status(400)
-        .render("auth.signup", { errorMessage: "Email is already in use." });
+        .render("auth/signup", { errorMessage: { email: "Email is already in use."},form:{ email,firstName,lastName, password } });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -61,29 +59,31 @@ router.post("/signup", isLoggedOut, (req, res) => {
         // Create a user and save it in the database
         return User.create({
           email,
+          firstName,
+          lastName,
           password: hashedPassword,
         });
       })
       .then((user) => {
         // Bind the user to the session object
         req.session.user = user;
+        res.locals.connectedUser = req.session.user;
         res.redirect("/");
       })
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
           return res
             .status(400)
-            .render("auth/signup", { errorMessage: error.message });
+            .render("auth/signup", { errorMessage:{ message:error.message }, form:{ email,firstName,lastName, password }});
         }
         if (error.code === 11000) {
           return res.status(400).render("auth/signup", {
-            errorMessage:
-              "Email need to be unique. The email you chose is already in use.",
+            errorMessage:{ message: "Email need to be unique. The email you chose is already in use."}
           });
         }
         return res
           .status(500)
-          .render("auth/signup", { errorMessage: error.message });
+          .render("auth/signup", {  errorMessage:{ message:error.message }, form:{ email,firstName,lastName, password }});
       });
   });
 });
@@ -93,7 +93,7 @@ router.get("/signin", isLoggedOut, (req, res) => {
 });
 
 router.post("/signin", isLoggedOut, (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, signedIn } = req.body;
 
   if (!email) {
     return res
@@ -126,7 +126,12 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
             .status(400)
             .render("auth/signin", { errorMessage: "Wrong credentials." });
         }
-        req.session.user = user;
+        
+        req.session.user = {
+          id:user._id,
+          name:user.firstName
+        };
+        res.locals.connectedUser = req.session.user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
         return res.redirect("/");
       });
@@ -140,7 +145,7 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
     });
 });
 
-router.get("/signout", isLoggedIn, (req, res) => {
+router.post("/signout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res

@@ -21,7 +21,7 @@ const userSchema = new Schema(
       type: String,
       default: '/images/profile/default.jpg'
     },
-    passwordHash: {
+    password: {
       type: String,
       required: 'Password is required',
     },
