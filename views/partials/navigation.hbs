@@ -16,8 +16,8 @@
             <ul class="navbar-nav ms-auto" aria-labelledby="navbar">
             {{#if connectedUser}}
                 <li class="nav-item dropdown mx-2">
-                <a class="nav-link dropdown-toggle" href="/user" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{connectedUser.name}}
+                <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="/user" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{connectedUser.image}}" alt="user profile picture" class="m-0 me-1 rounded" width="25"/>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/user">Profile</a></li>

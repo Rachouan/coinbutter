@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "tailwind:css": "postcss public/stylesheets/tailwind.css -o public/stylesheets/style.css"
+    "bootstrap:css": "sass --watch scss/style.scss:public/stylesheets/style.css"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
