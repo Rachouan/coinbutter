@@ -3,15 +3,15 @@ const { Schema, model } = require("mongoose");
 
 const transactionSchema = new Schema(
   {
-    buyPrice: { type: Number, default: 1 }, //default : get API
+    price: { type: Number, required:true }, //default : get API
+    currency: { type: String, required:true },
     amount: { type: Number, required: true },
     total: Number,
     transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
-    comment: String,
+    note: String,
     created: { type: Date, default: Date.now },
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true
   }
 );

@@ -75,6 +75,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
         res.redirect("/");
       })
       .catch((error) => {
+        console.log("erreo")
         if (error instanceof mongoose.Error.ValidationError) {
           return res
             .status(400)

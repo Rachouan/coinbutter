@@ -1,10 +1,14 @@
 const { Schema, model } = require("mongoose");
 
 const portfolioSchema = new Schema(
-  {
-    assets: { type: Array },
-    holdings: { type: Array },
-    worth: Number,
+  { 
+    name: String,
+    assets: [{ type: Schema.Types.ObjectId, ref: 'Asset' }],
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    currency: { type: String, required:true },
+    apiKey: String,
+    apiSecret: String,
+    apiName: String
   },
   {
     timestamps: true,
