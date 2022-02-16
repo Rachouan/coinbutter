@@ -72,10 +72,10 @@ router.post("/signup", isLoggedOut, (req, res) => {
           image:user.profileImage
         };
         res.locals.connectedUser = req.session.user;
-        res.redirect("/");
+        res.redirect("/dashboard");
       })
       .catch((error) => {
-        console.log("error")
+        //console.log("error")
         if (error instanceof mongoose.Error.ValidationError) {
           return res
             .status(400)
