@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 
 const transactionSchema = new Schema(
   {
-    price: { type: Number, required:true }, //default : get API
+    price: { type: Number, required:true },
     currency: { type: String, required:true },
     amount: { type: Number, required: true },
     total: Number,
