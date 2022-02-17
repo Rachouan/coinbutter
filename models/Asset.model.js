@@ -4,7 +4,7 @@ const assetSchema = new Schema(
     {
       coin: { type: Schema.Types.ObjectId, ref: 'Coin' },
       quantity: Number,
-      
+      portfolioId: {type: Schema.Types.String, ref: 'Portfolio'},
       transactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
       note: String,
       // averageBuyPrice: Number,
