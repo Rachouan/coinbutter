@@ -5,7 +5,7 @@ const coinSchema = new Schema(
     id: { type: String, required: true , unique: true},
     name: String,
     symbol: String,
-    icon: {type: String, default: '/images/coin/default.jpg'},
+    image: {type: String, default: '/images/coin/default.jpg'},
     portfolio: { type: Schema.Types.ObjectId, ref: 'Portfolio' },
     current_price: Number,
     market_cap: Number,

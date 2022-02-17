@@ -2,18 +2,6 @@ const router = require("express").Router();
 const Coin = require("../models/Coin.model.js");
 const axios = require("axios");
 
-router.get("/:coinId", (req, res, next) => {
-    const {coinId} = req.params
-
-    Coin.findOne({id:coinId})
-    .then(coin => {
-        console.log(coin)
-        res.render('assets/asset',{coin})
-    })
-    .catch(err => console.log(err));
-   
-});
-
 router.get("/update", (req, res, next) => {
 
     async function getCoins() {
@@ -28,6 +16,18 @@ router.get("/update", (req, res, next) => {
         }
     }
     getCoins();
+   
+});
+
+router.get("/:coinId", (req, res, next) => {
+    const {coinId} = req.params
+
+    Coin.findOne({id:coinId})
+    .then(coin => {
+        console.log(coin)
+        res.render('assets/asset',{coin})
+    })
+    .catch(err => console.log(err));
    
 });
 
