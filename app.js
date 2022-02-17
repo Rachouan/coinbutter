@@ -53,9 +53,6 @@ app.use("/auth", authRoutes);
 const dashboard = require("./routes/dashboard.routes");
 app.use("/", dashboard);
 
-const assets = require("./routes/assets.routes");
-app.use("/", assets);
-
 const portfolio = require("./routes/portfolio.routes");
 app.use("/portfolio", portfolio);
 

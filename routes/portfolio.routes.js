@@ -11,11 +11,8 @@ const isLoggedIn = require("../middleware/isLoggedIn");
  router.get('/:portfolioId', (req, res) => {
   res.render('portfolio/portfolio');
 }); 
-router.get('/:portfolioId/assets', (req, res, next) => {
-  res.render('assets/assets');
-});
 
 router.get('/:portfolioId/assets/:coinId', (req, res) => {
-  res.render('assets/coin');
+  res.render('assets/asset');
 }); 
 module.exports = router;
