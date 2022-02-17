@@ -5,12 +5,8 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 /* GET home page */
-router.get("/dashboard", isLoggedIn, (req, res, next) => {
+router.get("/", isLoggedIn, (req, res, next) => {
   res.render("dashboard");
 });
-
-router.get("/dashboard", isLoggedOut, (req, res, next) => {
-  res.render("../views/auth/signin.hbs");
-}); 
 
 module.exports = router;

@@ -1,7 +1,18 @@
 const router = require("express").Router();
-const mongoose = require("mongoose");
 const Coin = require("../models/Coin.model.js");
 const axios = require("axios");
+
+router.get("/:coinId", (req, res, next) => {
+    const {coinId} = req.params
+
+    Coin.findOne({id:coinId})
+    .then(coin => {
+        console.log(coin)
+        res.render('assets/asset',{coin})
+    })
+    .catch(err => console.log(err));
+   
+});
 
 router.get("/update", (req, res, next) => {
 

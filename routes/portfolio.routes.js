@@ -12,7 +12,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
   res.render('portfolio/portfolio');
 }); 
 
-router.get('/:portfolioId/assets/:coinId', (req, res) => {
+router.get('/:portfolioId/coins/:coinId', (req, res) => {
   res.render('assets/asset');
 }); 
 module.exports = router;
