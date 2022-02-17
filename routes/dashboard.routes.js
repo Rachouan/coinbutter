@@ -10,7 +10,7 @@ router.get("/dashboard", isLoggedIn, (req, res, next) => {
 });
 
 router.get("/dashboard", isLoggedOut, (req, res, next) => {
-  res.render("../views/auth/signup.hbs");
+  res.render("../views/auth/signin.hbs");
 }); 
 
 module.exports = router;
