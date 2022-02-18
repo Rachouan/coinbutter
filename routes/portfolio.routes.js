@@ -12,7 +12,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 // Routes
 
 router.get("/create", (req, res) => {
-  res.render("../views/portfolio/create.hbs");
+  res.render("portfolio/create");
 });
 
 router.post('/create', (req, res) => {
@@ -22,24 +22,27 @@ router.post('/create', (req, res) => {
 
   // Check if everything is filled by user
   if (!name) {
-    return res.status(400).render("portfoltio/create", { errorMessage: {name: "Please give a name to your portfolio."}, form:{ name, currency }});
+    return res.status(400).render("portfoltio/create", { error: {message: "Please give a name to your portfolio."}, form:{ name, currency }});
   } 
 
   // If everything good
-  /* Portfolio.findOne({ userId })
-    if (found && name === Portfolio.name) {
+  Portfolio.findOne({ name: name.toLowerCase() })
+  .then(folio =>{
+    if (folio && folio.name.toLowerCase() === name.toLowerCase()) {
       return res
-        .status(400)
-        .render("portfoltio/create", { errorMessage: {name: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});;
-    }  */
-  
-  Portfolio.create({ name,assets:[],user,currency })
-  .then(portfolio => {
-    console.log(portfolio);
-    res.redirect('/portfolio');
+      .status(400)
+      .render("portfolio/create", { error: {message: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});
+    } 
+    
+    Portfolio.create({ name:name.toLowerCase(),assets:[],user,currency })
+    .then(portfolio => {
+      console.log(portfolio);
+      res.redirect('/portfolio');
+    })
+    .catch(err => console.log(err));
+    
   })
-  .catch(err => console.log(err));
-
+  
 }); 
 
 router.get('/portfolio/:portfolioId', (req, res, next) => {
