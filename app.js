@@ -16,12 +16,6 @@ const app = express();
 
 const path = require('path');
 
-// Coingecko API
-/* const CoinGecko = require('coingecko-api');
-const CoinGeckoClient = new CoinGecko();
-
-console.log("CoinGecko API status ->", CoinGeckoClient.ping()); */
-
 // Axios
 /* const axios = require('axios'); */
 
