@@ -16,7 +16,7 @@ router.get("/create", (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-  const userId = req.params;
+  const userId = req.session;
 
   const { name, currency } = req.body;
 
@@ -35,16 +35,15 @@ router.post('/create', (req, res) => {
         .render("portfoltio/create", { errorMessage: {name: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});;
     }  */
   
-  Portfolio.create({
+  return Portfolio.create({
     name,
     assets: [],
     user: userId,
     currency
-  
   })
   .then(portfolio => {
     console.log(portfolio);
-    res.redirect('/portfolio/portfolio');
+    res.redirect('/portfolio/:portfolioId');
   })
   
   .catch(err => console.log(err));
@@ -56,20 +55,7 @@ router.post('/create', (req, res) => {
         .render("auth/signin", { errorMessage: "Sign in to create again to create a portfolio" })
     }
 
-    Portfolio.create({
-        name,
-        assets: [],
-        user: userId,
-        currency
-    });
 
-    return res
-      .then(portfolio => {
-          console.log(portfolio);
-          res.redirect('/:portfolioId');
-      })
-
-    .catch(err => console.log(err));
   });
  */
 }); 
