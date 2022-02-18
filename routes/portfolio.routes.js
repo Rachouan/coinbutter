@@ -40,11 +40,8 @@ router.post('/create', (req, res) => {
       res.redirect('/portfolio');
     })
     .catch(err => console.log(err));
-    
-  })
-  .catch(err => console.log(err));
-  
-}); 
+  }) 
+});
 
 router.get('/portfolio/:portfolioId', (req, res, next) => {
   const portfolioId = req.params;
