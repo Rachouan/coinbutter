@@ -16,16 +16,14 @@ router.get("/create", (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-  const userId = req.params;
-
+  
+  const user = req.session.user.id;
   const { name, currency } = req.body;
 
   // Check if everything is filled by user
-  /* if (!name) {
-    return res
-      .status(400)
-      .render("portfoltio/create", { errorMessage: {name: "Please give a name to your portfolio."}, form:{ name, currency }});
-  } */
+  if (!name) {
+    return res.status(400).render("portfoltio/create", { errorMessage: {name: "Please give a name to your portfolio."}, form:{ name, currency }});
+  } 
 
   // If everything good
   /* Portfolio.findOne({ userId })
@@ -35,43 +33,13 @@ router.post('/create', (req, res) => {
         .render("portfoltio/create", { errorMessage: {name: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});;
     }  */
   
-  Portfolio.create({
-    name,
-    assets: [],
-    user: userId,
-    currency
-  
-  })
+  Portfolio.create({ name,assets:[],user,currency })
   .then(portfolio => {
     console.log(portfolio);
-    res.redirect('/portfolio/portfolio');
+    res.redirect('/portfolio');
   })
-  
   .catch(err => console.log(err));
 
-  /* User.findOne({ userId }).then((found) => {
-    if (!found) {
-      return res
-        .statut(400)
-        .render("auth/signin", { errorMessage: "Sign in to create again to create a portfolio" })
-    }
-
-    Portfolio.create({
-        name,
-        assets: [],
-        user: userId,
-        currency
-    });
-
-    return res
-      .then(portfolio => {
-          console.log(portfolio);
-          res.redirect('/:portfolioId');
-      })
-
-    .catch(err => console.log(err));
-  });
- */
 }); 
 
 router.get('/portfolio/:portfolioId', (req, res, next) => {
