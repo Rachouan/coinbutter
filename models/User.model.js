@@ -17,6 +17,7 @@ const userSchema = new Schema(
       type: String,
       default: '/images/profile/default.jpg'
     },
+    darkmode:{type:Boolean, default: false},
     password: {
       type: String,
       required: 'Password is required',

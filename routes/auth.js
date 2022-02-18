@@ -69,7 +69,8 @@ router.post("/signup", isLoggedOut, (req, res) => {
         req.session.user = {
           id:user._id,
           name:user.firstName,
-          image:user.profileImage
+          image:user.profileImage,
+          darkmode: user.darkmode
         };
         res.locals.connectedUser = req.session.user;
         res.redirect("/dashboard");
@@ -135,7 +136,8 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
         req.session.user = {
           id:user._id,
           name:user.firstName,
-          image:user.profileImage
+          image:user.profileImage,
+          darkmode: user.darkmode
         };
         res.locals.connectedUser = req.session.user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
