@@ -42,7 +42,18 @@ router.post('/create', (req, res) => {
     .catch(err => console.log(err));
     
   })
-  
+  .catch(err => console.log(err));
+
+  /* User.findOne({ userId }).then((found) => {
+    if (!found) {
+      return res
+        .statut(400)
+        .render("auth/signin", { errorMessage: "Sign in to create again to create a portfolio" })
+    }
+
+
+  });
+ */
 }); 
 
 router.get('/portfolio/:portfolioId', (req, res, next) => {
