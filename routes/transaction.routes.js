@@ -14,6 +14,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.post('transaction/create', (req, res) => {
   
+  
 }); 
 
 // Module export
