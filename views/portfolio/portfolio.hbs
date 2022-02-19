@@ -3,7 +3,7 @@
         <div class="row">
             <article class="col-12 col-lg-8">
                 <div class="card mb-3 bg-transparent border-0">
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-0 px-0 px-md-2">
                         <nav aria-label="breadcrumb" class="mb-4">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/dashboard" class="link-secondary">Dashboard</a></li>
@@ -28,20 +28,22 @@
                     <div class="card-header bg-white p-3">
                         <h2 class="h5 mb-0">Assets</h2>
                     </div>
-                    <div class="card-body py-0 px-4">
+                    <div class="card-body pb-2 pt-0 px-3 px-md-4">
                         <div class="row p-2 border-bottom">
-                                <div scope="col" class="col">Name</div>
+                                <div scope="col" class="col-4 col-md ">Name</div>
                                 <div scope="col" class="col">Holdings</div>
                                 <div scope="col" class="col">Price</div>
-                                <div scope="col" class="col">Last 7 Days</div>
+                                <div scope="col" class="col d-none d-lg-block">Avg Buy Price</div>
+                                <div scope="col" class="col d-none d-lg-block">Profit/Loss</div>
+                                <div scope="col" class="col d-none d-lg-block">Last 7 Days</div>
                                 <div scope="col" class="col"></div>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item p-2 d-flex row align-items-center">
-                                <div class="col d-flex align-items-center">
+                            <li class="list-group-item px-0 py-2 py-md-2 d-flex row align-items-center">
+                                <div class="col-4 col-md d-flex align-items-center">
                                     <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579" class="me-2"alt="Bitcoin" width="34"/>
                                     <div>
-                                        <h3 class="h5 mb-0 ">Bitcon</h3>
+                                        <h3 class="h6 mb-0 ">Bitcon</h3>
                                         <p class="mb-0 text-muted"><small>BTC</small></p>
                                     </div>
                                 </div>
@@ -57,12 +59,23 @@
                                         <p class="mb-0 text-success"><small>+6%</small></p>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col d-none d-lg-block">
+                                    <div>
+                                        <p class="mb-0">$39,000.00</h3>
+                                        <p class="mb-0 text-success"><small>+6%</small></p>
+                                    </div>
+                                </div>
+                                <div class="col d-none d-lg-block">
+                                    <div>
+                                        <p class="mb-0 text-success">+$10,000.00</h3>
+                                    </div>
+                                </div>
+                                <div class="col d-none d-lg-block">
                                     <div>
                                         <p class="mb-0">Littel Graph</h3>
                                     </div>
                                 </div>
-                                <div align="right" class="col"><a href="/portfolio/{{portfolio.id}}/transaction/new/?coin=bitcoin" class="">Transaction</a></div>
+                                <div align="right" class="col"><a href="/portfolio/{{portfolio.id}}/transaction/new/?coin=bitcoin" class="btn btn-outline-secondary">+</a></div>
                             </li>
                         </ul>
                     </div>

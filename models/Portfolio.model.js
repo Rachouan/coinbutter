@@ -4,6 +4,7 @@ const portfolioSchema = new Schema(
   { 
     id: { type:String, unique: true,required: true},
     name: String,
+    value: Number,
     assets: [{ type: Schema.Types.ObjectId, ref: 'Asset' }],
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     currency: { type: String, required:true },

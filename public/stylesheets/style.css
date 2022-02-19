@@ -11124,4 +11124,8 @@ textarea.form-control-lg {
   max-width: 560px;
 }
 
+.list-group-item h3, .list-group-item .h3, .list-group-item p {
+  line-height: 1 !important;
+}
+
 /*# sourceMappingURL=style.css.map */

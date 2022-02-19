@@ -48,3 +48,8 @@ $component-active-bg:         $dark !default;
 .sign-container{
     max-width:560px;
 }
+.list-group-item{
+    h3,p{
+        line-height:1 !important;
+    }
+}

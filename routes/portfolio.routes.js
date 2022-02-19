@@ -37,7 +37,7 @@ router.post('/create', (req, res) => {
       .render("portfolio/create", { error: {message: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});
     } 
     
-    Portfolio.create({ id:generatePortfolioId(name),name,assets:[],user,currency })
+    Portfolio.create({ id:generatePortfolioId(name),name,value:0,assets:[],user,currency })
     .then(portfolio => {
       console.log(portfolio);
       res.redirect(`/portfolio/${portfolio.id}`);
