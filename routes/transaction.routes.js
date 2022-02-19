@@ -22,27 +22,54 @@ router.post('/new', (req, res) => {
     const user = req.session.user.id;
     const {price, currency, amount, total, transactionType, note, created} = req.body; 
 
-    //check if asset already in user's portfolio
+    // Check if asset already in user's portfolio and update or create
 
-    async function findIfAlreadyHere(user, coinId) {
-        const result = await client.db("coinbutter").collection("porfolio").findOne({ user: user, assets:coinId });
+    async function findIfAlreadyHere(coinId, portfolioId) {
+        const result = await Asset.findOne({ coin:coinId, portfolioId: portfolioId });
         
-        if (!result) {
-            client.db("coinbutter").collection("porfolio").insertOne()({ assets:coinId })
-        }
+        if (result) {
+            Asset.findOneAndUpdate({
+                coin:           coinId, 
+                portfolioId:    portfolioId
+            }, 
+            {
+                quantity:       quantity+amount, 
+                $push:{
+                    transaction:{
+                        price:          price, 
+                        currency:       currency, 
+                        amount:         amount, 
+                        total:          total, 
+                        transactionType:transactionType, 
+                        note:           note, 
+                        created:        created
+                    }
+                }
+            })
+        } else {
+            Asset.create({
+                coin:           coinId, 
+                portfolioId:    portfolioId, 
+                transaction:{
+                    price:          price, 
+                    currency:       currency, 
+                    amount:         amount, 
+                    total:          total, 
+                    transactionType:transactionType, 
+                    note:           note, 
+                    created:        created
+                }
+            })
+            
+        } return res
+            .redirect(`/portfolio/${portfolioId}`)
     }
+});
 
-    Portfolio.findById(PortfolioId) {
-        .then(folio =>{
-            folio.assets.create({ coinId })
-        })
-    }
-}); 
 
-router.post('/', (req, res) => {
 
-    
-  }); 
+
+router.post('/', (req, res) => {}); 
 
 // Module export
 
