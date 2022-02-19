@@ -1,6 +1,119 @@
 <section class="py-3 py-md-5">
     <div class="container">
-        <h1 class="h2 mb-0">Portfolio Name</h1>
-        <p class="lead">This is a subtitle</p>
+        <div class="row">
+            <article class="col-12 col-lg-8">
+                <div class="card mb-3 bg-transparent border-0">
+                    <div class="card-body pt-0">
+                        <nav aria-label="breadcrumb" class="mb-4">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/dashboard" class="link-secondary">Dashboard</a></li>
+                                <li class="breadcrumb-item active text-capitalize" aria-current="page">{{portfolio.name}}</li>
+                            </ol>
+                        </nav>
+                        <h1 class="h3 d-flex align-items-center text-capitalize">{{portfolio.name}}</h1>
+                        <h2 class="display-3 mb-0">&dollar;100,000.00</h2>
+                        <!-- <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas> -->
+                    </div>
+                </div>
+            </article>
+            <aside class="col-12 col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="lead">Quick Convert</h2>
+                    </div>
+                </div>
+            </aside>
+            <article>
+                <div class="card mb-3">
+                    <div class="card-header bg-white p-3">
+                        <h2 class="h5 mb-0">Assets</h2>
+                    </div>
+                    <div class="card-body py-0 px-4">
+                        <div class="row p-2 border-bottom">
+                                <div scope="col" class="col">Name</div>
+                                <div scope="col" class="col">Holdings</div>
+                                <div scope="col" class="col">Price</div>
+                                <div scope="col" class="col">Last 7 Days</div>
+                                <div scope="col" class="col"></div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-2 d-flex row align-items-center">
+                                <div class="col d-flex align-items-center">
+                                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579" class="me-2"alt="Bitcoin" width="34"/>
+                                    <div>
+                                        <h3 class="h5 mb-0 ">Bitcon</h3>
+                                        <p class="mb-0 text-muted"><small>BTC</small></p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <p class="mb-0">$78,000.00</h3>
+                                        <p class="mb-0 text-muted"><small>2 BTC</small></p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <p class="mb-0">$39,000.00</h3>
+                                        <p class="mb-0 text-success"><small>+6%</small></p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <p class="mb-0">Littel Graph</h3>
+                                    </div>
+                                </div>
+                                <div align="right" class="col"><a href="/portfolio/{{portfolio.id}}/transaction/new/?coin=bitcoin" class="">Transaction</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </div>
     </div>
 </section>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script>
+    const chart = document.querySelector('.cb-linechart')
+    const ctx = chart.getContext('2d');
+    const data = chart.dataset.sparkline.split(',');
+    console.log(data)
+    const days = '0123456'.split('').map(function(n) {
+        var d = new Date();
+        d.setDate(d.getDate() - n);
+
+        return (function(day, month, year) {
+            return [day<10 ? '0'+day : day, month<10 ? '0'+month : month].join('/');
+        })(d.getDate(), d.getMonth()+1);
+    }).reverse();
+    console.log(days);
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: days,
+            datasets: [{
+                label: '# of Votes',
+                data: data,
+                borderColor: [
+                    '#FF9C41',
+                ],
+                borderWidth: 3
+            }]
+        },
+        options: {
+            datalabels: {
+                display: false,
+            },
+            plugins: {
+                legend: {
+                    display:false
+                }
+            },
+            scales: {
+                display:false,
+                xAxes: [{
+                    display: false //this will remove only the label
+                }]
+            }
+        }
+    });
+</script> -->

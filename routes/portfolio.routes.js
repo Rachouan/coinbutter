@@ -10,6 +10,9 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // Routes
+const generatePortfolioId = (name) => {
+  return name.replace(/\s+/g, '-').toLowerCase();
+}
 
 router.get("/create", (req, res) => {
   res.render("portfolio/create");
@@ -26,15 +29,15 @@ router.post('/create', (req, res) => {
   } 
 
   // If everything good
-  Portfolio.findOne({ name: name.toLowerCase() })
+  Portfolio.findOne({ id: generatePortfolioId(name) })
   .then(folio =>{
-    if (folio && folio.name.toLowerCase() === name.toLowerCase()) {
+    if (folio && generatePortfolioId(folio.name) === generatePortfolioId(name)) {
       return res
       .status(400)
       .render("portfolio/create", { error: {message: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});
     } 
     
-    Portfolio.create({ name:name.toLowerCase(),assets:[],user,currency })
+    Portfolio.create({ id:generatePortfolioId(name),name,assets:[],user,currency })
     .then(portfolio => {
       console.log(portfolio);
       res.redirect(`/portfolio/${portfolio.id}`);
@@ -43,12 +46,11 @@ router.post('/create', (req, res) => {
   }) 
 });
 
-router.get('/portfolio/:portfolioId', (req, res, next) => {
+router.get('/:portfolioId', (req, res, next) => {
   const portfolioId = req.params;
 
   Portfolio.findOne({portfolioId})
     .then(portfolio => {
-        console.log(portfolio)
         res.render('portfolio/portfolio',{portfolio})
     })
     .catch(err => console.log(err));
