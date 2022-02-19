@@ -50,6 +50,9 @@ app.use("/dashboard", dashboard);
 const portfolio = require("./routes/portfolio.routes");
 app.use("/portfolio", portfolio);
 
+const transactions = require("./routes/transaction.routes");
+app.use("/portfolio", transactions);
+
 const coins = require("./routes/coin.routes");
 app.use("/coins", coins);
 

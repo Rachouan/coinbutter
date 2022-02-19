@@ -3,10 +3,17 @@
   <h2>New transaction</h2>
   <p class="mt-2 text-center text-sm text-gray-600">
   {{#if error.message}} <div class="alert alert-danger py-2" role="alert">{{error.message}}</div> {{/if}}
-  <form action="/transactions/new" method="POST">
+  <form action="/portfolio/6210dcaab2411c2bfdeea1ae/transactions/create" method="POST">
     <div class="form-group">
       <label for="portfolioName">Name</label>
       <input type="text" class="form-control" id="portfolio-name" name="name" placeholder="My Portfolio">
+      <input type="number" name="price" placeholder="price"/>
+      <input type="text" name="coin" placeholder="coin" value="620ecf5f2f75e01ddaa9feb9"/>
+      <input type="number" name="amount" placeholder="amount"/>
+      <input type="number" name="total" placeholder="total"/>
+      <input type="text" name="transactionType" placeholder="transactionType"/>
+      <input type="text" name="note" placeholder="note"/>
+      <input type="date" name="created" placeholder="created"/>
     </div>
     <div class="form-group">
       <label for="currencySelect">Currency</label>
@@ -14,6 +21,6 @@
         <option value="USD">USD</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg" href="/">Submit</button>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
   </form>
 </div>
