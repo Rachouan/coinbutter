@@ -48,9 +48,17 @@ router.post('/create', (req, res) => {
 
 router.get('/:portfolioId', (req, res, next) => {
   const portfolioId = req.params;
-
+  
+  
   Portfolio.findOne({portfolioId})
+    .populate({
+      path : 'assets',
+      populate : {
+        path : 'coin'
+      }
+    })
     .then(portfolio => {
+      console.log(portfolio);
         res.render('portfolio/portfolio',{portfolio})
     })
     .catch(err => console.log(err));
