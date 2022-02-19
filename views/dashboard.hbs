@@ -3,25 +3,137 @@
         <div class="row">
             <article class="col-12 col-lg-8">
                 <div class="card mb-3 bg-transparent border-0">
-                    <div class="card-body p-0">
+                    <div class="card-body pt-0 px-0 px-md-2">
                         <p class="lead text-muted">Total portfolio balance</p>
                         <h1 class="display-4">$10,000</h1>
+                        <!-- <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas> -->
                     </div>
                 </div>
-                <div class="card mb-3">
+                <div class="card mb-3 border-0 shadow-sm">
                     <div class="card-body">
-                        <h2 class="lead">Portfolios</h2>
-                        <p></p>
+                        <p class="lead text-muted">Portfolios</p>
+                        <div>
+
+                        </div>
+                        <!-- <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas> -->
                     </div>
                 </div>
             </article>
             <aside class="col-12 col-lg-4">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0 shadow-sm">
                     <div class="card-body">
                         <h2 class="lead">Quick Convert</h2>
                     </div>
                 </div>
             </aside>
+            <article>
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-header bg-white p-3">
+                        <h2 class="h5 mb-0">Market</h2>
+                    </div>
+                    <div class="card-body pb-2 pt-0">
+                        <div class="row p-2 py-md-3 border-bottom">
+                            <div scope="col" class="col flex-shrink-0 text-center" style="max-width: 60px;">#</div>
+                            <div scope="col" class="col-4 col-md ">Name</div>
+                            <div scope="col" class="col">Price</div>
+                            <div scope="col" class="col d-none d-lg-block">Market Cap</div>
+                            <div scope="col" class="col d-none d-lg-block">Total Volume</div>
+                            <div scope="col" class="col d-none d-lg-block">All Time Hight</div>
+                            <div scope="col" class="col d-none d-lg-block">Last 7 Days</div>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush">
+                            {{#each coins}}
+                            <a href="/coins/{{id}}" class="list-group-item list-group-item-action px-0 py-2 py-md-3 d-flex row mx-0 align-items-center">
+                                <div class="col flex-shrink-0 text-center" style="max-width: 60px;">
+                                    <div>
+                                        <p class="mb-0 text-muted"><small>{{market_cap_rank}}</small></h3>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md d-flex align-items-center">
+                                    <img src="{{image}}" class="me-3 rounded" alt="Bitcoin" width="30"/>
+                                    <div>
+                                        <h3 class="h6 mb-0 ">{{name}}</h3>
+                                        <p class="mb-0 text-muted text-uppercase"><small>{{symbol}}</small></p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <p class="mb-0">${{current_price}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <p class="mb-0">${{market_cap}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col d-none d-lg-block">
+                                    <div>
+                                        <p class="mb-0">${{total_volume}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col d-none d-lg-block">
+                                    <div>
+                                        <p class="mb-0">${{ath}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col d-none d-lg-block">
+                                    <div>
+                                        <p class="mb-0">Littel Graph</h3>
+                                    </div>
+                                </div>
+                            </a>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
 </section>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script>
+    const chart = document.querySelector('.cb-linechart')
+    const ctx = chart.getContext('2d');
+    const data = chart.dataset.sparkline.split(',');
+    console.log(data)
+    const days = '0123456'.split('').map(function(n) {
+        var d = new Date();
+        d.setDate(d.getDate() - n);
+
+        return (function(day, month, year) {
+            return [day<10 ? '0'+day : day, month<10 ? '0'+month : month].join('/');
+        })(d.getDate(), d.getMonth()+1);
+    }).reverse();
+    console.log(days);
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: days,
+            datasets: [{
+                label: '# of Votes',
+                data: data,
+                borderColor: [
+                    '#FF9C41',
+                ],
+                borderWidth: 3
+            }]
+        },
+        options: {
+            datalabels: {
+                display: false,
+            },
+            plugins: {
+                legend: {
+                    display:false
+                }
+            },
+            scales: {
+                display:false,
+                xAxes: [{
+                    display: false //this will remove only the label
+                }]
+            }
+        }
+    });
+</script> -->
