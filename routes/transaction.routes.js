@@ -12,12 +12,12 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // Routes
-router.get('/new', (req, res) => {
+router.get('transactions/new', (req, res) => {
     res.render('/transactions/create');
 }); 
 
 
-router.post('/new', (req, res) => {
+router.post('transactions/new', (req, res) => {
     const { coinId, PortfolioId } = req.params;
     const user = req.session.user.id;
     const {price, currency, amount, total, transactionType, note, created} = req.body; 
