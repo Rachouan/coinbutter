@@ -37,7 +37,7 @@ router.post('/create', (req, res) => {
     Portfolio.create({ name:name.toLowerCase(),assets:[],user,currency })
     .then(portfolio => {
       console.log(portfolio);
-      res.redirect('/portfolio');
+      res.redirect(`/portfolio/${portfolio.id}`);
     })
     .catch(err => console.log(err));
   }) 
