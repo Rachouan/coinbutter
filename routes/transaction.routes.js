@@ -28,12 +28,6 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
     // Check if asset already in user's portfolio and update or create
 
     async function findIfAlreadyHere() {
-        
-    //   coin: { type: Schema.Types.ObjectId, ref: 'Coin' },
-    //   quantity: Number,
-    //   portfolioId: {type: Schema.Types.ObjectId, ref: 'Portfolio'},
-    //   transactions: [{ type: Schema.Types.ObjectId, ref: 'Transaction' }],
-    //   note: String,
 
         let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId });
         let portfolio = await Portfolio.findOne({ coin:coin, portfolioId: portfolioId });
