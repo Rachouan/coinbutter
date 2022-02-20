@@ -15,10 +15,10 @@
                         <div>
                             {{#each portfolios}}
                             <div class="portfolio-card card">
-                                <a href="/portfolio/{{id}}" class="text-decoration-none text-dark">
+                                <a href="/portfolio/{{_id}}" class="text-decoration-none text-dark">
                                     <div class="card-body">
                                         <h2 class="lead">{{name}}</h2>
-                                        <h3>$100,000.00</h3>
+                                        <h3>&dollar;{{total}}</h3>
                                         <img src="/images/assets/graph-slim.svg" class="w-100"/>
                                     </div>
                                 </a>

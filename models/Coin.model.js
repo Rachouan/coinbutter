@@ -12,7 +12,7 @@ const coinSchema = new Schema(
     market_cap_rank: Number,
     fully_diluted_valuation: Number,
     total_volume: Number,
-    price_change_percentage: Number,
+    price_change_percentage_24h: Number,
     total_supply: Number,
     circulating_supply: Number,
     ath: Number,

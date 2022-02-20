@@ -11,20 +11,20 @@
                             </ol>
                         </nav>
                         <h1 class="h3 d-flex align-items-center text-capitalize">{{portfolio.name}}</h1>
-                        <h2 class="display-3 mb-0">&dollar;100,000.00</h2>
+                        <h2 class="display-3 mb-0">&dollar;{{ portfolio.total }}</h2>
                         <!-- <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas> -->
                     </div>
                 </div>
             </article>
             <aside class="col-12 col-lg-4">
-                <div class="card mb-3">
+                <div class="card mb-3 border-0 shadow-sm">
                     <div class="card-body">
                         <h2 class="lead">Quick Convert</h2>
                     </div>
                 </div>
             </aside>
             <article>
-                <div class="card mb-3">
+                <div class="card mb-3 border-0 shadow-sm">
                     <div class="card-header bg-white p-3">
                         <h2 class="h5 mb-0">Assets</h2>
                     </div>
@@ -50,14 +50,15 @@
                                 </div>
                                 <div class="col">
                                     <div>
-                                        <p class="mb-0">$78,000.00</h3>
-                                        <p class="mb-0 text-muted"><small>2 BTC</small></p>
+                                        <p class="mb-0">&dollar;{{totalAmount}}</h3>
+                                        <p class="mb-0 text-muted text-uppercase"><small>{{amount}} {{ coin.symbol }}</small></p>
                                     </div>
                                 </div>
+                                
                                 <div class="col">
                                     <div>
-                                        <p class="mb-0">$39,000.00</h3>
-                                        <p class="mb-0 text-success"><small>+6%</small></p>
+                                        <p class="mb-0">${{coin.current_price}}</h3>
+                                        <p class="mb-0 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}"><small>{{coin.price_change_percentage_24h}}%</small></p>
                                     </div>
                                 </div>
                                 <div class="col d-none d-lg-block">

@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const helper = require("../helpers/helpers.js");
 
 const Coin = require("../models/Coin.model.js");
 const Portfolio = require("../models/Portfolio.model.js");
@@ -13,9 +14,23 @@ router.get("/", isLoggedIn, (req, res, next) => {
   async function getDashboardData(){
     try {
         const coins = await Coin.find()
-        const portfolios = await Portfolio.find()
+        const portfolios = await Portfolio.find().populate({
+          path : 'assets',
+          populate : {
+            path : 'coin'
+          }
+        })
         await Promise.all(coins,portfolios);
+        
+        let amount = 0;
+
+        portfolios.forEach(portfolio => {
+          let portfolioTotal = portfolio.assets.reduce((a,b) => a + b.amount * b.coin.current_price ,0);
+          portfolio.total = helper.amountFormatter(portfolioTotal);
+        })
+
         res.render("dashboard",{coins,portfolios});
+        
     } catch (error) {
         console.error(error);
     }

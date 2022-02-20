@@ -13,9 +13,9 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // Routes
 router.get('/:portfolioId/transactions/create', (req, res) => {
-    console.log(req);
+    const {portfolioId} = req.params
     console.log('HELLO')
-    res.render('transactions/create');
+    res.render('transactions/create',{portfolioId});
 }); 
 
 
@@ -30,7 +30,7 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
     async function findIfAlreadyHere() {
 
         let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId });
-        let portfolio = await Portfolio.findOne({ coin:coin, portfolioId: portfolioId });
+        let portfolio = await Portfolio.findOne({_id: portfolioId });
         if(!asset){
             asset = await Asset.create({coin,amount,portfolioId})
             await Portfolio.findOneAndUpdate({_id:portfolioId},{$push: { assets: asset.id  }});
@@ -56,6 +56,8 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
             default :
                 newAmount += transaction.amount
         }
+
+        console.log();
 
         asset = await Asset.findOneAndUpdate({id:asset.id},
             {

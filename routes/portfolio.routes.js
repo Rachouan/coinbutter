@@ -9,6 +9,7 @@ const User = require("../models/User.model.js");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
+const helper = require("../helpers/helpers.js");
 // Routes
 const generatePortfolioId = (name) => {
   return name.replace(/\s+/g, '-').toLowerCase();
@@ -47,10 +48,10 @@ router.post('/create', (req, res) => {
 });
 
 router.get('/:portfolioId', (req, res, next) => {
-  const portfolioId = req.params;
+  const {portfolioId} = req.params;
   
   
-  Portfolio.findOne({portfolioId})
+  Portfolio.findOne({_id:portfolioId})
     .populate({
       path : 'assets',
       populate : {
@@ -58,7 +59,14 @@ router.get('/:portfolioId', (req, res, next) => {
       }
     })
     .then(portfolio => {
-      console.log(portfolio);
+        let amount = 0;
+
+        let portfolioTotal = portfolio.assets.reduce((a,b) => {
+          amount = b.amount * b.coin.current_price;
+          b.totalAmount =  helper.amountFormatter(amount);
+          return a + amount;
+        } ,0);
+        portfolio.total = helper.amountFormatter(portfolioTotal);
         res.render('portfolio/portfolio',{portfolio})
     })
     .catch(err => console.log(err));

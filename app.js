@@ -23,6 +23,9 @@ const path = require('path');
 require("./config")(app);
 hbs.registerPartials(__dirname + '/views/partials');
 
+hbs.registerHelper("checkIfUpOrDown", perc => perc > 0 ? 'text-success': 'text-danger');
+hbs.registerHelper("amountFormatter", amount => amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'hbs');
 
