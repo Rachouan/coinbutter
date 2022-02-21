@@ -11,9 +11,6 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 const helper = require("../helpers/helpers.js");
 // Routes
-const generatePortfolioId = (name) => {
-  return name.replace(/\s+/g, '-').toLowerCase();
-}
 
 router.get("/create", (req, res) => {
   res.render("portfolio/create");
@@ -30,18 +27,18 @@ router.post('/create', (req, res) => {
   } 
 
   // If everything good
-  Portfolio.findOne({ id: generatePortfolioId(name) })
+  Portfolio.findOne({ id: helper.concatString(name) })
   .then(folio =>{
-    if (folio && generatePortfolioId(folio.name) === generatePortfolioId(name)) {
+    if (folio && helper.concatString(folio.name) === helper.concatString(name)) {
       return res
       .status(400)
       .render("portfolio/create", { error: {message: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});
     } 
     
-    Portfolio.create({ id:generatePortfolioId(name),name,value:0,assets:[],user,currency })
+    Portfolio.create({ id:helper.concatString(name),name,value:0,assets:[],user,currency })
     .then(portfolio => {
       console.log(portfolio);
-      res.redirect(`/portfolio/${portfolio.id}`);
+      res.redirect(`/portfolio/${portfolio._id}`);
     })
     .catch(err => console.log(err));
   }) 

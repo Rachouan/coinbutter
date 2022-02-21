@@ -30,10 +30,15 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
     async function findIfAlreadyHere() {
 
         let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId });
+
         let portfolio = await Portfolio.findOne({_id: portfolioId });
+        console.log('Portfolio:',portfolio);
         if(!asset){
+            console.log('Create New assets')
             asset = await Asset.create({coin,amount,portfolioId})
-            await Portfolio.findOneAndUpdate({_id:portfolioId},{$push: { assets: asset.id  }});
+            portfolio.assets.push(asset.id);
+            await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
+            console.log(portfolio);
         }
         
         const transaction = await Transaction.create({
@@ -57,8 +62,6 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
                 newAmount += transaction.amount
         }
 
-        console.log();
-
         asset = await Asset.findOneAndUpdate({id:asset.id},
             {
                 amount:newAmount,
@@ -66,8 +69,7 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
             }
         );
 
-        console.log(portfolio);
-        res.redirect(`/portfolio/${portfolio.id}`);
+        res.redirect(`/portfolio/${portfolio._id}`);
         //res.json(asset);
         
     }
