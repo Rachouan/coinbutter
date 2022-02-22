@@ -5,7 +5,7 @@
         <h2>New Transaction</h2>
         <p class="lead">Add your crypto transactions.</p>
       </div>
-      <div class="card rounded border-0 shadow-sm">
+      <div class="card rounded border-0 shadow-sm transactionForm">
         <div class="nav mt-3 w-100 d-inline-flex nav-tabs mx-auto align-items-center justify-content-center" id="nav-tab" role="tablist">
             <button class="nav-link active lead px-4" id="nav-buy-tab" data-bs-toggle="tab" data-bs-target="#nav-buy" type="button" role="tab" aria-controls="nav-buy" aria-selected="true">Buy</button>
             <button class="nav-link lead  px-4" id="nav-sell-tab" data-bs-toggle="tab" data-bs-target="#nav-sell" type="button" role="tab" aria-controls="nav-sell" aria-selected="false">Sell</button>
@@ -18,19 +18,19 @@
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="buy"/>
                 <div class="form-floating mb-3">
-                  <select class="form-select" id="floatingSelect" name="coin" aria-label="Floating label select example">
+                  <select class="form-select coinSelect" id="coinSelect" name="coin" aria-label="Floating label select example">
                     {{#each coins}}
                     <option value="{{_id}}" data-coin-price="{{current_price}}">{{name}}</option>
                     {{/each}}
                   </select>
-                  <label for="floatingSelect">Currency</label>
+                  <label for="coinSelect">Currency</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="price" name="price" placeholder="Price" value="{{coins.0.current_price}}">
+                  <input type="number" class="form-control" id="price" name="price" placeholder="Price" value="{{coins.0.current_price}}" required="required">
                   <label for="price">Price</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="amount" name="amount" placeholder="Price">
+                  <input type="number" class="form-control" id="amount" name="amount" placeholder="Price" required="required" min="0">
                   <label for="amount">Amount</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -53,7 +53,7 @@
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="sell"/>
                 <div class="form-floating mb-3">
-                  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <select class="form-select coinSelect" id="floatingSelect" aria-label="Floating label select example">
                     {{#each coins}}
                     <option value="{{_id}}" data-coin-price="{{current_price}}">{{name}}</option>
                     {{/each}}
