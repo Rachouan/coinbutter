@@ -1,20 +1,23 @@
 const router = require("express").Router();
 const Asset = require("../models/Asset.model.js");
 const axios = require("axios");
+const helper = require("../helpers/helpers.js");
 
-console.log(`Assets routes`)
 
 router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
     const {assetId} = req.params
 
     Asset.findOne({id:assetId})
-    .populate('coin')
+    .populate('coin transactions portfolioId')
     .then(asset => {
-        console.log(asset)
-        res.json(asset);
-        //res.render('assets/asset',{coin:Asset.coin})
+        //console.log(asset.amount, asset.coin);
+        asset.coin.total_value = helper.amountFormatter(asset.amount * asset.coin.current_price);
+        res.render('assets/asset',{coin:asset.coin,transactions:asset.transactions,portfolio:asset.portfolioId})
     })
-    .catch(err => res.json(err));
+    .catch(err => {
+        console.log('Error',err);
+        res.json(err)
+    });
     
 });
 
