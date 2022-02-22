@@ -4,10 +4,11 @@ const axios = require("axios");
 
 console.log(`Assets routes`)
 
-router.get("portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
+router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
     const {assetId} = req.params
 
     Asset.findOne({id:assetId})
+    .populate('coin')
     .then(asset => {
         console.log(asset)
         res.json(asset);
