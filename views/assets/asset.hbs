@@ -6,12 +6,16 @@
                     <div class="card-body">
                         <nav aria-label="breadcrumb" class="mb-4">
                             <ol class="breadcrumb">
+                                {{#if portfolio}}
+                                <li class="breadcrumb-item"><a href="/portfolio/{{portfolio._id}}" class="link-secondary">{{portfolio.name}}</a></li>
+                                {{else}}
                                 <li class="breadcrumb-item"><a href="/dashboard" class="link-secondary">Dashboard</a></li>
+                                {{/if}}
                                 <li class="breadcrumb-item active" aria-current="page">{{coin.name}}</li>
                             </ol>
                         </nav>
                         <h1 class="h3 d-flex align-items-center"><img src="{{coin.image}}" alt="{{coin.name}}" width="30"/><span class="mx-2">{{coin.name}}</span><span class="text-uppercase text-muted"><small>{{coin.symbol}}</small></span></h1>
-                        <h2 class="display-3 mb-0">&dollar;{{coin.current_price}}</h2>
+                        <h2 class="display-3 mb-0">&dollar;{{#if coin.total_value}}{{coin.total_value}}{{else}}{{#amountFormatter coin.current_price}}{{/amountFormatter}}{{/if}}</h2>
                         <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas>
                     </div>
                 </div>
@@ -21,23 +25,40 @@
                         <div class="row">
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Ranking</p>
-                                <p class="h4">#{{coin.market_cap_rank}}</p>
+                                <p class="h5">#{{coin.market_cap_rank}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Market cap</p>
-                                <p class="h4">&dollar;{{coin.market_cap}}</p>
+                                <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Market cap</p>
-                                <p class="h4">€677.7B</p>
+                                <p class="h5">€677.7B</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Market cap</p>
-                                <p class="h4">€677.7B</p>
+                                <p class="h5">€677.7B</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{#if transactions}}
+                <div class="card mb-3">
+                    <div class="card-body p-md-4">
+                        <h2 class="h5 mb-3">Transactions</h2>
+                        {{#each transactions}}
+                        <div class="row">
+                            
+                            <div class="col-6 col-md">
+                                <p class="text-muted mb-2">{{amount}}</p>
+                                <p class="h4">#Amount</p>
+                            </div>
+                            
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
             </article>
             <aside class="col-12 col-lg-4">
                 <div class="card mb-3">
