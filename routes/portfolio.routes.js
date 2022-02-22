@@ -69,7 +69,7 @@ router.get('/:portfolioId', (req, res, next) => {
     .catch(err => console.log(err));
 }); 
 
-router.get('/portfolio/:portfolioId/coins/:coinId', (req, res) => {
+router.get('/portfolio/:portfolioId/asset/:coinId', (req, res) => {
   res.render('assets/asset');
 }); 
 
