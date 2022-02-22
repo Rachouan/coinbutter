@@ -76,11 +76,6 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
     findIfAlreadyHere();
 });
 
-
-
-
-router.post('/', (req, res) => {}); 
-
 // Module export
 
 module.exports = router;
