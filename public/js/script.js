@@ -4,13 +4,34 @@ function updateTotal(price,amount,total){
   const totalValue = price.value * amount.value;
   total.value = totalValue.toFixed(2);
 }
+$(document).ready(function() {
+  function formatState (state) {
+    if (!state.id) {
+      return state.text;
+    }
+    var url = state.element.dataset.image;
+    var $state = $(
+      `<span><img src="${url}" class="coin-icon me-2" />${state.text}</span>`
+    );
+    return $state;
+  };
+  $('.coinSelect').select2({
+    templateResult: formatState
+  });
+  $(".js-example-templating").select2({
+    
+  });
+  
+})
 
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-    console.log(transactionForm);
+
     transactionForm.forEach(form =>{
       const coinSelection = form.querySelector('.coinSelect');
+      
+      //coinSelection.select2();
       const priceField = form.querySelector('#price');
       const amountField = form.querySelector('#amount');
       const totalField = form.querySelector('#total');

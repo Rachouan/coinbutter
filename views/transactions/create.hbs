@@ -18,9 +18,9 @@
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="buy"/>
                 <div class="form-floating mb-3">
-                  <select class="form-select coinSelect" id="coinSelect" name="coin" aria-label="Floating label select example">
+                  <select class="form-select coinSelect" id="coinSelect" name="coin" aria-label="Floating label select example"  style="width: 100%;">
                     {{#each coins}}
-                    <option value="{{_id}}" data-coin-price="{{current_price}}">{{name}}</option>
+                    <option value="{{_id}}" data-coin-price="{{current_price}}" data-image="{{image}}">{{name}}</option>
                     {{/each}}
                   </select>
                   <label for="coinSelect">Currency</label>
@@ -53,9 +53,9 @@
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="sell"/>
                 <div class="form-floating mb-3">
-                  <select class="form-select coinSelect" id="floatingSelect" aria-label="Floating label select example">
+                  <select class="form-select coinSelect" id="floatingSelect" aria-label="Floating label select example" style="width: 100%;">
                     {{#each coins}}
-                    <option value="{{_id}}" data-coin-price="{{current_price}}">{{name}}</option>
+                    <option value="{{_id}}" data-coin-price="{{current_price}}" data-image="{{image}}">{{name}}</option>
                     {{/each}}
                   </select>
                   <label for="floatingSelect">Currency</label>

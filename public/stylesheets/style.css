@@ -11128,8 +11128,40 @@ textarea.form-control-lg {
   line-height: 1 !important;
 }
 
+.select2-container--default .select2-results__option--selected {
+  background-color: #faf9f8;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: #efece9;
+  color: #141210;
+}
+
+.coin-icon {
+  width: 28px;
+}
+
 .portfolio-card {
   width: 300px;
+}
+
+.select2-container .select2-selection--single {
+  height: 58px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  display: block;
+  padding-left: 12px;
+  padding-right: 20px;
+  padding-top: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 58px;
+  right: 8px;
 }
 
 /*# sourceMappingURL=style.css.map */
