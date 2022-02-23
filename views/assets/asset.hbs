@@ -19,6 +19,33 @@
                         <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas>
                     </div>
                 </div>
+                {{#if transactions}}
+                <aside class="col-12 col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body p-md-4">
+                            <h2 class="h5 mb-3">Market stats</h2>
+                            <div class="row">
+                                <div class="col-6 col-md">
+                                    <p class="text-muted mb-2">Ranking</p>
+                                    <p class="h5">#{{coin.market_cap_rank}}</p>
+                                </div>
+                                <div class="col-6 col-md">
+                                    <p class="text-muted mb-2">Market cap</p>
+                                    <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
+                                </div>
+                                <div class="col-6 col-md">
+                                    <p class="text-muted mb-2">Market cap</p>
+                                    <p class="h5">€677.7B</p>
+                                </div>
+                                <div class="col-6 col-md">
+                                    <p class="text-muted mb-2">Market cap</p>
+                                    <p class="h5">€677.7B</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                {{else}}
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Market stats</h2>
@@ -42,7 +69,31 @@
                         </div>
                     </div>
                 </div>
+                {{/if}}
                 {{#if transactions}}
+                <div class="card mb-3">
+                    <div class="card-body p-md-4">
+                        <h2 class="h5 mb-3">Statistics</h2>
+                        <div class="row">
+                            <div class="col-6 col-md">
+                                <p class="text-muted mb-2">% of Holdings</p>
+                                <p class="h5">#{{coin.market_cap_rank}}</p>
+                            </div>
+                            <div class="col-6 col-md">
+                                <p class="text-muted mb-2">Avg Buy price</p>
+                                <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
+                            </div>
+                            <div class="col-6 col-md">
+                                <p class="text-muted mb-2">Total PnL</p>
+                                <p class="h5">€677.7B</p>
+                            </div>
+                            <div class="col-6 col-md">
+                                <p class="text-muted mb-2">Sell target</p>
+                                <p class="h5">€677.7B</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Transactions</h2>
