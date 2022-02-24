@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-6 col-md">
                                     <p class="text-muted mb-2">Ranking</p>
-                                    <p class="h5">#{{coin.market_cap_rank}}</p>
+                                    <p class="h5">{{coin.market_cap_rank}}</p>
                                 </div>
                                 <div class="col-6 col-md">
                                     <p class="text-muted mb-2">Market cap</p>
@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Ranking</p>
-                                <p class="h5">#{{coin.market_cap}}</p>
+                                <p class="h5">#{{coin.market_cap_rank}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Market cap</p>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Avg Buy price</p>
-                                <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
+                                <p class="h5">&dollar;{{#amountFormatter avgBuyPrice}}{{/amountFormatter}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Total PnL</p>
