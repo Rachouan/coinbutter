@@ -1,11 +1,12 @@
+
 <section class="py-3 py-md-4 bg-light">
    <div class="container sign-container my-md-4">
       <div class="text-center mb-4">
-        <h2>Create a new portfolio</h2>
+        <h2>Update {{portfolio.name}}</h2>
       </div>
       <div class="card rounded border-0 shadow-sm transactionForm">
         <div class="card-body p-4 p-md-5">
-            <form action="/portfolio/create/" method="POST">
+            <form action="/portfolio/{{portfolio._id}}/edit/" method="POST">
             {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Price" value="{{portfolio.name}}" required>
@@ -18,7 +19,7 @@
                 <label for="floatingSelect">Currency</label>
             </div>
             
-            <button type="submit" class="btn btn-primary w-100">Create Portfolio</button>
+            <button type="submit" class="btn btn-primary w-100">Update Portfolio</button>
             </form>
         </div>
       </div>

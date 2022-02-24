@@ -21,10 +21,12 @@ router.post('/create', (req, res) => {
   const user = req.session.user.id;
   const { name, currency } = req.body;
 
-  // Check if everything is filled by user
-  if (!name) {
-    return res.status(400).render("portfoltio/create", { error: {message: "Please give a name to your portfolio."}, form:{ name, currency }});
-  } 
+  if(!name || !currency){
+    return res.render('portfolio/create',{errors:{message:'Please enter a name and select a currency'},portfolio:{_id:portfolioId,name,currency}})
+  }
+  if(name.length < 2){
+    return res.render('portfolio/create',{errors:{message:'Choose a name thats longer than 2 characters'},portfolio:{_id:portfolioId,name,currency}})
+  }
 
   // If everything good
   Portfolio.findOne({ id: helper.concatString(name) })
@@ -68,6 +70,59 @@ router.get('/:portfolioId', (req, res, next) => {
     })
     .catch(err => console.log(err));
 }); 
+
+router.get("/:portfolioId/edit", (req, res) => {
+  const {portfolioId} = req.params;
+  Portfolio.findOne({_id:portfolioId})
+    .then(portfolio => {
+        res.render('portfolio/edit',{portfolio})
+    })
+    .catch(err => console.log(err));
+});
+
+router.post("/:portfolioId/edit", (req, res) => {
+  const {portfolioId} = req.params;
+  const {name, currency } = req.body;
+
+  if(!name || !currency){
+    return res.render('portfolio/edit',{errors:{message:'Please enter a name and select a currency'},portfolio:{_id:portfolioId,name,currency}})
+  }
+  if(name.length < 2){
+    return res.render('portfolio/edit',{errors:{message:'Choose a name thats longer than 2 characters'},portfolio:{_id:portfolioId,name,currency}})
+  }
+
+  Portfolio.findOneAndUpdate({_id:portfolioId},{name, currency })
+    .then(portfolio => {
+        res.redirect(`/portfolio/${portfolio._id}`);
+    })
+    .catch(err => console.log(err));
+});
+
+router.post("/:portfolioId/delete", (req, res) => {
+  const user = req.session.user.id;
+  const {portfolioId} = req.params;
+
+  console.log(user);
+
+  async function checkIfUserPortfolio(){
+    try {
+      const portfolio = await Portfolio.findOne({_id:portfolioId});
+      console.log(portfolio.user);
+      if(portfolio.user == user){
+        await Portfolio.deleteOne({ _id: portfolioId });
+        res.redirect(`/dashboard/`);
+      }else{
+        res.redirect(`/portfolio/${portfolio}`);
+      }
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  checkIfUserPortfolio();
+
+});
+
 
 router.get('/portfolio/:portfolioId/asset/:coinId', (req, res) => {
   res.render('assets/asset');
