@@ -15,7 +15,9 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("auth/signup");
+  const {email} = req.query;
+  console.log(email)
+  res.render("auth/signup",{form:{email}});
 });
 
 router.post("/signup", isLoggedOut, (req, res) => {

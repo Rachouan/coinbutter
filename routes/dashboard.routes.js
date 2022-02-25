@@ -22,14 +22,15 @@ router.get("/", isLoggedIn, (req, res, next) => {
         })
         await Promise.all(coins,portfolios);
         
-        let amount = 0;
+        let total = 0;
 
         portfolios.forEach(portfolio => {
           let portfolioTotal = portfolio.assets.reduce((a,b) => a + b.amount * b.coin.current_price ,0);
           portfolio.total = helper.amountFormatter(portfolioTotal);
+          total += portfolioTotal;
         })
 
-        res.render("dashboard",{coins,portfolios});
+        res.render("dashboard",{dashboard:{total},coins,portfolios});
         
     } catch (error) {
         console.error(error);

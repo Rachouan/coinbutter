@@ -28,6 +28,12 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+    const swiper = new Swiper('.swiper', {
+      // Default parameters
+      slidesPerView: 'auto',
+      spaceBetween: 10,
+    });
+
     transactionForm.forEach(form =>{
       const coinSelection = form.querySelector('.coinSelect');
       
