@@ -45,6 +45,7 @@ app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 app.use((req,res,next) => {
     res.locals.connectedUser = req.session.user ? req.session.user : false;
+    console.log(res.locals.connectedUser);
     next();
 });
 
@@ -69,6 +70,9 @@ app.use("/coins", coins);
 
 const assets = require("./routes/assets.routes");
 app.use("/", assets);
+
+const activation = require("./routes/activation.routes");
+app.use("/", activation);
 
 /* app.get('/assets', (req, res, next) => {
     axios
