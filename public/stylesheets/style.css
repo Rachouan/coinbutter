@@ -102,7 +102,7 @@ hr:not([size]) {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: roc-grotesk, sans-serif;
+  font-family: ballinger, sans-serif;
   font-weight: 500;
   line-height: 1.2;
 }
@@ -2304,7 +2304,7 @@ progress {
   min-height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 }
 .form-control-lg::file-selector-button {
   padding: 0.5rem 1rem;
@@ -2398,7 +2398,7 @@ textarea.form-control-lg {
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   font-size: 1.25rem;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 }
 
 .form-check {
@@ -2590,7 +2590,7 @@ textarea.form-control-lg {
 }
 .form-floating > .form-control,
 .form-floating > .form-select {
-  height: calc(3.5rem + 2px);
+  height: calc(3rem + 2px);
   line-height: 1.25;
 }
 .form-floating > label {
@@ -2598,7 +2598,7 @@ textarea.form-control-lg {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 1rem 0.75rem;
+  padding: 0.8rem 0.75rem;
   pointer-events: none;
   border: 1px solid transparent;
   transform-origin: 0 0;
@@ -2610,22 +2610,22 @@ textarea.form-control-lg {
   }
 }
 .form-floating > .form-control {
-  padding: 1rem 0.75rem;
+  padding: 0.8rem 0.75rem;
 }
 .form-floating > .form-control::placeholder {
   color: transparent;
 }
 .form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown) {
-  padding-top: 1.625rem;
-  padding-bottom: 0.625rem;
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
 }
 .form-floating > .form-control:-webkit-autofill {
-  padding-top: 1.625rem;
-  padding-bottom: 0.625rem;
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
 }
 .form-floating > .form-select {
-  padding-top: 1.625rem;
-  padding-bottom: 0.625rem;
+  padding-top: 1.4rem;
+  padding-bottom: 0.4rem;
 }
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
@@ -2685,7 +2685,7 @@ textarea.form-control-lg {
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 }
 
 .input-group-sm > .form-control,
@@ -3440,7 +3440,7 @@ textarea.form-control-lg {
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 }
 
 .btn-sm, .btn-group-sm > .btn {
@@ -4819,12 +4819,12 @@ textarea.form-control-lg {
   font-size: 1.25rem;
 }
 .pagination-lg .page-item:first-child .page-link {
-  border-top-left-radius: 0.8rem;
-  border-bottom-left-radius: 0.8rem;
+  border-top-left-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
 }
 .pagination-lg .page-item:last-child .page-link {
-  border-top-right-radius: 0.8rem;
-  border-bottom-right-radius: 0.8rem;
+  border-top-right-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
 }
 
 .pagination-sm .page-link {
@@ -5502,7 +5502,7 @@ textarea.form-control-lg {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(29, 22, 16, 0.2);
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
   outline: 0;
 }
 
@@ -5529,8 +5529,8 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding: 1rem 1rem;
   border-bottom: 1px solid #e6e3de;
-  border-top-left-radius: calc(0.8rem - 1px);
-  border-top-right-radius: calc(0.8rem - 1px);
+  border-top-left-radius: calc(0.6rem - 1px);
+  border-top-right-radius: calc(0.6rem - 1px);
 }
 .modal-header .btn-close {
   padding: 0.5rem 0.5rem;
@@ -5556,8 +5556,8 @@ textarea.form-control-lg {
   justify-content: flex-end;
   padding: 0.75rem;
   border-top: 1px solid #e6e3de;
-  border-bottom-right-radius: calc(0.8rem - 1px);
-  border-bottom-left-radius: calc(0.8rem - 1px);
+  border-bottom-right-radius: calc(0.6rem - 1px);
+  border-bottom-left-radius: calc(0.6rem - 1px);
 }
 .modal-footer > * {
   margin: 0.25rem;
@@ -5849,7 +5849,7 @@ textarea.form-control-lg {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(29, 22, 16, 0.2);
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
 }
 .popover .popover-arrow {
   position: absolute;
@@ -5941,8 +5941,8 @@ textarea.form-control-lg {
   font-size: 1rem;
   background-color: #f0f0f0;
   border-bottom: 1px solid rgba(29, 22, 16, 0.2);
-  border-top-left-radius: calc(0.8rem - 1px);
-  border-top-right-radius: calc(0.8rem - 1px);
+  border-top-left-radius: calc(0.6rem - 1px);
+  border-top-right-radius: calc(0.6rem - 1px);
 }
 .popover-header:empty {
   display: none;
@@ -7869,7 +7869,7 @@ textarea.form-control-lg {
 }
 
 .rounded-3 {
-  border-radius: 0.8rem !important;
+  border-radius: 0.6rem !important;
 }
 
 .rounded-circle {
