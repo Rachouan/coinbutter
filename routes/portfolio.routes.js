@@ -28,22 +28,13 @@ router.post('/create', (req, res) => {
     return res.render('portfolio/create',{errors:{message:'Choose a name thats longer than 2 characters'},portfolio:{_id:portfolioId,name,currency}})
   }
 
-  // If everything good
-  Portfolio.findOne({ id: helper.concatString(name) })
-  .then(folio =>{
-    if (folio && helper.concatString(folio.name) === helper.concatString(name)) {
-      return res
-      .status(400)
-      .render("portfolio/create", { error: {message: "You already gave this name to another portfolio. Please choose another one."}, form:{ name, currency }});
-    } 
-    
-    Portfolio.create({ id:helper.concatString(name),name,value:0,assets:[],user,currency })
-    .then(portfolio => {
-      console.log(portfolio);
-      res.redirect(`/portfolio/${portfolio._id}`);
-    })
-    .catch(err => console.log(err));
-  }) 
+  Portfolio.create({ id:helper.concatString(name),name,value:0,assets:[],user,currency })
+  .then(portfolio => {
+    console.log(portfolio);
+    res.redirect(`/portfolio/${portfolio._id}`);
+  })
+  .catch(err => console.log(err));
+  
 });
 
 router.get('/:portfolioId', (req, res, next) => {

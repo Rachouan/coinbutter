@@ -9,6 +9,7 @@ const saltRounds = 10;
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
+const Activation = require("../models/Activation.model");
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
@@ -68,14 +69,23 @@ router.post("/signup", isLoggedOut, (req, res) => {
       })
       .then((user) => {
         // Bind the user to the session object
-        req.session.user = {
-          id:user._id,
-          name:user.firstName,
-          image:user.profileImage,
-          darkmode: user.darkmode
-        };
-        res.locals.connectedUser = req.session.user;
-        res.redirect("/dashboard");
+
+        const code = Math.floor(100000 + Math.random() * 900000);
+        
+        Activation.create({code,user:user._id})
+        .then((activation) =>{
+
+          req.session.user = {
+            id:user._id,
+            name:user.firstName,
+            image:user.profileImage,
+            darkmode: user.darkmode,
+            active:user.active,
+          };
+          res.locals.connectedUser = req.session.user;
+          res.redirect("/dashboard");
+
+        });
       })
       .catch((error) => {
         //console.log("error")
@@ -139,11 +149,12 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
           id:user._id,
           name:user.firstName,
           image:user.profileImage,
-          darkmode: user.darkmode
+          darkmode: user.darkmode,
+          active:user.active,
         };
         res.locals.connectedUser = req.session.user;
         // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        return res.redirect("/");
+        return res.redirect("/dashboard");
       });
     })
 

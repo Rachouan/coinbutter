@@ -11,10 +11,12 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
 
+  const user = req.session.user.id;
+
   async function getDashboardData(){
     try {
         const coins = await Coin.find()
-        const portfolios = await Portfolio.find().populate({
+        const portfolios = await Portfolio.find({user}).populate({
           path : 'assets',
           populate : {
             path : 'coin'

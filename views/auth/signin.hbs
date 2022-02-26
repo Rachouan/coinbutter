@@ -4,18 +4,18 @@
         <h2>Sign in to your account</h2>
         <p class="mt-2 text-center text-sm text-gray-600">
           Or
-          <a href="/auth/signup" class="font-medium text-indigo-600 hover:text-indigo-500"> start your 14-day free trial </a>
+          <a href="/auth/signup" class="font-medium text-indigo-600 hover:text-indigo-500"> Get Started Now For Free! </a>
         </p>
       </div>
-      <div class="card rounded p-4 p-md-5">
+      <div class="card border-0 shadow-sm rounded p-4 p-md-5">
          <form action="/auth/signin" method="POST">
-            <div class="mb-3">
-               <label for="email" class="form-label">Email address</label>
-               <input type="email" name="email" class="form-control" id="email" required="required">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <label for="email">Email address</label>
             </div>
-            <div class="mb-3">
-               <label for="password" class="form-label">Password</label>
-               <input type="password" class="form-control" id="password" name="password" required="required">
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <label for="password">Password</label>
             </div>
             <div class="mb-3 form-check">
                <input type="checkbox" name="signedIn" class="form-check-input" id="exampleCheck1">
