@@ -202,4 +202,47 @@ router.post("/signout", isLoggedIn, (req, res) => {
   });
 });
 
+router.get("/reset-password", isLoggedOut, (req, res) => {
+  res.render('auth/resetPassword');
+});
+
+router.post("/reset-password", isLoggedOut, (req, res) => {
+  (async () => {
+    const {email} = req.body;
+    try{
+
+      if(!email) throw new Error(`You must enter an email`);
+
+      const user = await User.findOne({email});
+      
+      if(user){
+        const msg = {
+          to: email,
+          from: 'info@rachouan.com',
+          templateId: 'd-6626e715320d4f11b7f816020afe1e44',
+          dynamic_template_data: {
+            reset: user.id
+          },
+        };
+  
+        await sgMail.send(msg);
+      }
+
+      res.render('auth/resetPassword',{success:{message:`If we found your email we'll send you a reset password email.`}});
+
+    }catch(err){
+      res.render('auth/resetPassword',{errors:{message:err.message}});
+    }
+
+  })();
+  
+});
+
+router.get("/reset", isLoggedOut, (req, res) => {
+
+  const {reset} = req.params;
+  if(!reset) return res.redirect('/');
+  res.render('auth/reset',{reset});
+
+});
 module.exports = router;

@@ -31,13 +31,15 @@ router.get("/activate", (req, res, next) => {
                 }
                 
                 res.render('activation/activate');
+
             }else{
                 return res.redirect('/dashboard');
             }
             
             
         }catch(err){
-            return res.redirect('/dashboard');
+            console.log(err);
+            //return res.redirect('/dashboard');
         }
         
     })();
