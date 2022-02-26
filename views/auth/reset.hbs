@@ -1,0 +1,25 @@
+<section class="py-5 bg-light">
+   <div class="container sign-container my-md-4">
+      <div class="text-center mb-4">
+        <h2>Reset your password</h2>
+        <p class="mt-2 text-center text-sm text-muted">
+          If we find you in our system we'll send you an email to reset your password.
+        </p>
+      </div>
+      <div class="card border-0 shadow-sm rounded p-4 p-md-5">
+         <form action="/auth/reset" method="POST">
+            {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
+            {{#if success.message}} <div class="alert alert-success py-2" role="alert">{{success.message}}</div> {{/if}}
+             <div class="form-floating mb-3">
+                <input type="hidden" name="reset">
+                <input type="password" class="form-control shadow-sm" id="password" name="password" placeholder="Password" required>
+                <label for="email">Reset Password *</label>
+                <div id="passwordHelp" class="form-text small text-center mt-2">Password must be at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 btn-lg">Reset Password</button>
+         </form>
+      </div>
+      <p class="py-3 text-muted small text-center">Copyright&copy; Coinbutter 2022. Made with love in Lisbon.</p>
+   </div>
+</section>
+
