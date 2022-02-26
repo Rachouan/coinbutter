@@ -8,6 +8,7 @@
     "bootstrap:css": "sass --watch scss/style.scss:public/stylesheets/style.css"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.6.1",
     "axios": "^0.26.0",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",

@@ -53,7 +53,7 @@
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="sell"/>
                 <div class="form-floating mb-3">
-                  <select class="form-select coinSelect" id="floatingSelect" aria-label="Floating label select example" style="width: 100%;">
+                  <select class="form-select coinSelect" id="floatingSelect" name="coin" aria-label="Floating label select example" style="width: 100%;">
                     {{#each coins}}
                     <option value="{{_id}}" data-coin-price="{{current_price}}" data-image="{{image}}">{{name}}</option>
                     {{/each}}

@@ -69,6 +69,9 @@ $form-floating-label-opacity:     .65 !default;
 $form-floating-label-transform:   scale(.85) translateY(-.5rem) translateX(.15rem) !default;
 $form-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out !default;
 
+body{
+    letter-spacing: -0.03rem;
+}
 .sign-container{
     max-width:560px;
 }

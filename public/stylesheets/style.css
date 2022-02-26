@@ -2590,7 +2590,7 @@ textarea.form-control-lg {
 }
 .form-floating > .form-control,
 .form-floating > .form-select {
-  height: calc(3rem + 2px);
+  height: calc(3.5rem + 2px);
   line-height: 1.25;
 }
 .form-floating > label {
@@ -2598,7 +2598,7 @@ textarea.form-control-lg {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 0.8rem 0.75rem;
+  padding: 1rem 0.75rem;
   pointer-events: none;
   border: 1px solid transparent;
   transform-origin: 0 0;
@@ -2610,22 +2610,22 @@ textarea.form-control-lg {
   }
 }
 .form-floating > .form-control {
-  padding: 0.8rem 0.75rem;
+  padding: 1rem 0.75rem;
 }
 .form-floating > .form-control::placeholder {
   color: transparent;
 }
 .form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown) {
-  padding-top: 1.4rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
 }
 .form-floating > .form-control:-webkit-autofill {
-  padding-top: 1.4rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
 }
 .form-floating > .form-select {
-  padding-top: 1.4rem;
-  padding-bottom: 0.4rem;
+  padding-top: 1.625rem;
+  padding-bottom: 0.625rem;
 }
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
@@ -11221,6 +11221,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  letter-spacing: -0.03rem;
+}
+
 .sign-container {
   max-width: 560px;
 }

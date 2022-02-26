@@ -13,7 +13,7 @@
                 <div class="mb-4 border-0">
                     
                     <p class="lead text-muted">Portfolios</p>
-                    <div class="d-flex">
+                    <div class="d-flex pb-3">
                         <div class="swiper portfolio-swiper">
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
@@ -30,7 +30,7 @@
                                                         <button class="btn btn-sm btn-outline-darker text-dark py-0" type="button" id="{{portfolio.id}}-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="line-height:1;">
                                                             <img src="../images/assets/more.svg" width="18"/>
                                                         </button>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="{{portfolio.id}}-dropdown">
+                                                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="{{portfolio.id}}-dropdown">
                                                             <li><a href="/portfolio/{{_id}}/edit" class="dropdown-item">Edit</a></li>
                                                             <li>
                                                                 <form action="/portfolio/{{_id}}/delete" method="POST">

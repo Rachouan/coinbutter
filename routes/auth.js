@@ -1,4 +1,7 @@
 const router = require("express").Router();
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 // ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
@@ -83,9 +86,31 @@ router.post("/signup", isLoggedOut, (req, res) => {
             active:user.active,
           };
           res.locals.connectedUser = req.session.user;
+
+          const msg = {
+            to: email,
+            from: 'info@rachouan.com',
+            templateId: 'd-383e5812b2d947bc99ba64014ba4e3e0',
+            dynamic_template_data: {
+              code: code,
+              id: activation._id,
+            },
+          };
+
+          sgMail.send(msg)
+          .then(() => {}, error => {
+            console.error(error);
+        
+            if (error.response) {
+              console.error(error.response.body)
+            }
+          });
+
           res.redirect("/dashboard");
 
         });
+        
+        
       })
       .catch((error) => {
         //console.log("error")

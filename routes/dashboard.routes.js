@@ -15,7 +15,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
   async function getDashboardData(){
     try {
-        const coins = await Coin.find()
+        const coins = await Coin.find().sort('market_cap_rank')
         const portfolios = await Portfolio.find({user}).populate({
           path : 'assets',
           populate : {

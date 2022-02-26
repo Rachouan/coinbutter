@@ -48,7 +48,7 @@
                         <div class="row p-2 border-bottom">
                                 <div scope="col" class="col-4 col-md ">Name</div>
                                 <div scope="col" class="col">Holdings</div>
-                                <div scope="col" class="col">Price</div>
+                                <div scope="col" class="col d-none d-lg-block">Price</div>
                                 <div scope="col" class="col d-none d-lg-block">Avg Buy Price</div>
                                 <div scope="col" class="col d-none d-lg-block">Profit/Loss</div>
                                 <div scope="col" class="col d-none d-lg-block">Last 7 Days</div>
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col">
+                                <div class="col  d-none d-lg-block">
                                     <div>
                                         <p class="mb-0">${{#amountShortener coin.current_price}}{{/amountShortener}}</h3>
                                         <p class="mb-0 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}"><small>{{coin.price_change_percentage_24h}}%</small></p>
@@ -93,7 +93,23 @@
                                         <p class="mb-0">Littel Graph</h3>
                                     </div>
                                 </div>
-                                <div align="right" class="col"><a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="btn btn-outline-secondary">Details</a></div>
+                                <div align="right" class="col d-flex align-items-center">
+                                    <a href="/portfolio/{{../portfolio._id}}/transactions/create?coin={{id}}" class="btn text-primary">Buy/Sell</a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-darker text-dark" type="button" id="{{portfolio.id}}-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="line-height:1;">
+                                            <img src="../images/assets/more.svg" width="18"/>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="{{portfolio.id}}-dropdown">
+                                            <li><a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="dropdown-item">Details</a></li>
+                                            <li>
+                                                <form action="/portfolio/{{../portfolio._id}}/asset/{{id}}/delete" method="POST">
+                                                    <button type="submit" class="dropdown-item text-danger">Delete</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                </div>
                             </li>
                             {{/each}}
                         </ul>

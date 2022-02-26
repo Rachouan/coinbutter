@@ -14,7 +14,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 // Routes
 router.get('/:portfolioId/transactions/create', (req, res) => {
     const {portfolioId} = req.params;
-    Coin.find()
+    Coin.find().sort('market_cap_rank')
     .then(coins => res.render('transactions/create',{portfolioId,coins}))
     .catch(err => console.log(err));
     console.log('HELLO')
@@ -37,9 +37,10 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
         let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId }).populate('coin');
 
         let portfolio = await Portfolio.findOne({_id: portfolioId });
-        console.log('Portfolio:',portfolio);
+        console.log('Portfolio and asset:',portfolio.length,asset);
+        
         if(!asset){
-            console.log('Create New assets')
+            console.log('Create New asset')
             asset = await Asset.create({coin,amount,portfolioId})
             portfolio.assets.push(asset.id);
             await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
@@ -67,7 +68,7 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
                 newAmount += transaction.amount
         }
 
-        asset = await Asset.findOneAndUpdate({id:asset.id},
+        await Asset.findOneAndUpdate({id:asset.id},
             {
                 amount:newAmount,
                 $push: { transactions: transaction.id  }
@@ -75,7 +76,6 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
         );
 
         res.redirect(`/portfolio/${portfolio._id}`);
-        //res.json(asset);
         
     }
     findIfAlreadyHere();
