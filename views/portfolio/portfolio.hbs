@@ -16,7 +16,7 @@
                                 <h2 class="display-3 mb-0">&dollar;{{ portfolio.total }}</h2>
                             </div>
                             <div>
-                                <a href="/portfolio/{{portfolio._id}}/transactions/create" class="btn btn-primary me-2">Transaction</a>
+                                <a href="/portfolio/{{portfolio._id}}/transactions/create" class="btn btn-primary ps-2 me-2"><img src="/images/assets/plus-icon.svg" width="18" class="me-1"/>Buy/Sell</a>
                                 <div class="btn-group">
                                     <a href="/portfolio/{{portfolio._id}}/edit" class="btn btn-outline-darker text-dark">Edit</a>
                                     <button type="button" class="btn btn-outline-darker px-1  text-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,7 +101,7 @@
                                     <a href="/portfolio/{{../portfolio._id}}/transactions/create?coin={{id}}" class="btn text-primary">Buy/Sell</a>
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-outline-darker text-dark" type="button" id="{{portfolio.id}}-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="line-height:1;">
-                                            <img src="../images/assets/more.svg" width="18"/>
+                                            <img src="/images/assets/more.svg" width="18"/>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="{{portfolio.id}}-dropdown">
                                             <li><a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="dropdown-item">Details</a></li>
@@ -121,7 +121,7 @@
                     {{else}}
                     <div class="py-4 py-md-5 px-3 text-center">
                         <div class="col-12 col-md-4 mx-auto">
-                            <img src="../images/assets/add-asset.png" alt="btc plus icon" class="dashboard-big-icon"/>
+                            <img src="/images/assets/add-asset.png" alt="btc plus icon" class="dashboard-big-icon"/>
                             <h2 class="h3">Add Your First Asset</h2>
                             <p class="text-muted">Managing your assets have never been this easy, get started by creating your adding your first asset.</p>
                             <a href="/portfolio/{{portfolio._id}}/transactions/create" class="btn btn-primary me-2">Add Transaction</a>
