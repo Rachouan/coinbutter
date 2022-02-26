@@ -122,3 +122,9 @@ body{
         flex-wrap: nowrap;
     }
 }
+.navbar-brand {
+    line-height: 0;
+    .logo{
+        height: 20px;
+    }
+}

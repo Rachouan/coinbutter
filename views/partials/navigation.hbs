@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
     <div class="container">
-        <a class="navbar-brand h5 mt-1 mb-0" href="/">Coinbutter</a>
+        <a class="navbar-brand mb-0" href="/"><img src="../images/assets/coinbutter.png" class="logo"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,10 +10,14 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
                 </li>
-                {{/if}}
+                {{else}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/assets">Assets</a>
+                    <a class="nav-link" href="/assets">Why Coinbutter?</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/assets">Contact Us</a>
+                </li>
+                {{/if}}
             </ul>
             <ul class="navbar-nav ms-auto" aria-labelledby="navbar">
             {{#if connectedUser}}
@@ -43,9 +47,10 @@
         </div>
     </div>
 </nav>
-
+{{#if connectedUser}}
 {{#unless connectedUser.active}}<div class="container my-2">
     <div class="alert alert-warning text-center py-2" role="alert">
     <strong>Please confirm your email address</strong> so your account doesn't get deactivated. <a href="/activate" style="color: #996018;">Confirm Email Address</a>
     </div>
 {{/unless}}
+{{/if}}

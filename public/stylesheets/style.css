@@ -11282,4 +11282,11 @@ body {
   flex-wrap: nowrap;
 }
 
+.navbar-brand {
+  line-height: 0;
+}
+.navbar-brand .logo {
+  height: 20px;
+}
+
 /*# sourceMappingURL=style.css.map */
