@@ -67,7 +67,12 @@
                                 <div class="col">
                                     <div>
                                         <p class="mb-0">&dollar;{{totalAmount}}</h3>
-                                        <p class="mb-0 text-muted text-uppercase"><small>{{amount}} {{ coin.symbol }}</small></p>
+                                        <div class="d-flex">
+                                            <p class="mb-0 text-muted text-uppercase"><small>{{amount}} {{ coin.symbol }}</small></p>
+                                            <p class="mx-1 mb-0 text-muted">&middot;</p>
+                                            <p class="mb-0  d-inline-block d-lg-none {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}"><small>{{coin.price_change_percentage_24h}}%</small></p>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 
