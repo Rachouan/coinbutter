@@ -13,7 +13,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
   const user = req.session.user.id;
 
-  async function getDashboardData(){
+  (async () => {
     try {
         const coins = await Coin.find().sort('market_cap_rank')
         const portfolios = await Portfolio.find({user}).populate({
@@ -37,8 +37,8 @@ router.get("/", isLoggedIn, (req, res, next) => {
     } catch (error) {
         console.error(error);
     }
-  }
-  getDashboardData();
+  })();
+  
   
 });
 

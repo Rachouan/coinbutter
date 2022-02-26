@@ -1,0 +1,39 @@
+<a href="/coins/{{id}}" class="list-group-item list-group-item-action px-0 py-2 py-md-3 d-flex row mx-0 align-items-center">
+    <div class="col flex-shrink-0 text-center" style="max-width: 60px;">
+        <div>
+            <p class="mb-0 text-muted"><small>{{market_cap_rank}}</small></h3>
+        </div>
+    </div>
+    <div class="col-4 col-md d-flex align-items-center">
+        <img src="{{image}}" class="me-3 rounded" alt="Bitcoin" width="30"/>
+        <div>
+            <h3 class="h6 mb-0 ">{{name}}</h3>
+            <p class="mb-0 text-muted text-uppercase"><small>{{symbol}}</small></p>
+        </div>
+    </div>
+    <div class="col">
+        <div>
+            <p class="mb-0">${{#amountShortener current_price}}{{/amountShortener}}</h3>
+        </div>
+    </div>
+    <div class="col">
+        <div>
+            <p class="mb-0">${{#amountShortener market_cap}}{{/amountShortener}}</h3>
+        </div>
+    </div>
+    <div class="col d-none d-lg-block">
+        <div>
+            <p class="mb-0">${{#amountShortener total_volume}}{{/amountShortener}}</h3>
+        </div>
+    </div>
+    <div class="col d-none d-lg-block">
+        <div>
+            <p class="mb-0">${{#amountShortener ath}}{{/amountShortener}}</h3>
+        </div>
+    </div>
+    <div class="col d-none d-lg-block">
+        <div>
+            <img src="/images/assets/graph.svg" class="w-75"/>
+        </div>
+    </div>
+</a>
