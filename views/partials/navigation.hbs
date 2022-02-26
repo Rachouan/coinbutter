@@ -12,15 +12,16 @@
                 </li>
                 {{else}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/assets">Why Coinbutter?</a>
+                    <a class="nav-link" href="/#why">Why Coinbutter?</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/assets">Contact Us</a>
-                </li>
+                
                 {{/if}}
             </ul>
             <ul class="navbar-nav ms-auto" aria-labelledby="navbar">
-            {{#if connectedUser}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/help">Help?</a>
+                </li>
+                {{#if connectedUser}}
                 <li class="nav-item dropdown mx-2">
                 <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="/user" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{connectedUser.image}}" alt="user profile picture" class="m-0 me-1 rounded" width="25"/>
