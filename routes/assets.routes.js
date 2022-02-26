@@ -33,7 +33,7 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
         let transactions = await Transaction.find({asset:assetId, transactionType:"buy"})
         let asset = await Asset.findById(assetId)
 
-        ©
+    
         // Avg buy price
         for (let i=0; i<transactions.length; i++){
             denominator =+ transactions[i].amount * transactions[i].price;
