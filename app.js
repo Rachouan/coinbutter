@@ -64,15 +64,6 @@ app.use("/", assets);
 const activation = require("./routes/activation.routes");
 app.use("/", activation);
 
-/* app.get('/assets', (req, res, next) => {
-    axios
-    .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h')
-    .then(responseFromApi => {
-        res.render('./views/assets/assets.hbs', { assets: responseFromApi })
-    })
-    .catch((error) => console.log(error));
-}); */
-
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
