@@ -18,7 +18,6 @@ router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     .then(coins => res.render('transactions/create',{portfolioId,coins}))
     .catch(err => console.log(err));
     console.log('HELLO')
-    
 }); 
 
 
