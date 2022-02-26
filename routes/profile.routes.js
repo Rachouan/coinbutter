@@ -14,16 +14,16 @@ router.get("/:userId/edit", (req, res, next) => {
 
 router.post("/:userId/edit", (req, res) => {
     const { email,firstName,lastName, password } = req.body;
-    const {userId} = req.params
+    const { userId } = req.params
 
     if (!email) {
         return res
         .status(400)
-        .render("auth/signup", { errorMessage: {email: "Please provide your email."}, form:{ email,firstName,lastName, password }});
+        .render(`/${userId}/edit`, { errorMessage: {email: "Please provide your email."}, form:{ email,firstName,lastName, password }});
     }
 
     if (password.length < 8) {
-        return res.status(400).render("auth/signup", {
+        return res.status(400).render(`/${userId}/edit`, {
         errorMessage: {password: "Your password needs to be at least 8 characters long."}, form:{ email,firstName,lastName, password }});
     }
 
@@ -31,15 +31,19 @@ router.post("/:userId/edit", (req, res) => {
     const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
     if (!regex.test(password)) {
-        return res.status(400).render("signup", {
+        return res.status(400).render(`/${userId}/edit`, {
         errorMessage: { password: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter." }, form:{ email,firstName,lastName, password }});
     }
 
-    User.findOneAndUpdate({_id:userId});
+    User.findOneAndUpdate({_id:userId},{email,firstName,lastName,password})
+    .then(user => {
+        console.log("Updated :",user)
+        res.redirect("/", {user});
+    });
 
     Portfolio.findOne({user:userId})
     .then(folio => {
-        res.redirect(`/${folio._id}`);
+        res.redirect(`/${folio._id}`, {user,folio});
     })
     .catch(err => console.log(err));
 });
