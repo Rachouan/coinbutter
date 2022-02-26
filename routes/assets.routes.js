@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const Asset = require("../models/Asset.model.js");
 const axios = require("axios");
 const helper = require("../helpers/helpers.js");
+
 const Portfolio = require("../models/Portfolio.model.js");
+const Asset = require("../models/Asset.model.js");
 const Transaction = require("../models/Transaction.model.js");
 
 
@@ -29,19 +30,30 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
     })
     
     async function assetStatsHandler(){
-        let transactions = await Transaction.find({asset:assetId, transactionType:"buy"});
+        let transactions = await Transaction.find({asset:assetId, transactionType:"buy"})
+        let asset = await Asset.findById(assetId)
 
+        ©
+        // Avg buy price
         for (let i=0; i<transactions.length; i++){
             denominator =+ transactions[i].amount * transactions[i].price;
             numerator =+ transactions[i].amount;
         }
-        transactions.avg_buy_price = denominator / numerator;
+        avgBuyPrice = denominator / numerator;
 
+        console.log(avgBuyPrice)
+
+        // Total PnL
+        pnl = asset.coin.total_value - (avgBuyPrice * asset.amount);
         console.log(denominator)
+
+        // % holdings
+        asset.percentage = helper.round(assetValue * 100 / totalAmount);
+
     }
     assetStatsHandler();
 
-    // % holdings
+    
 
 
     // Avg Buying Price
