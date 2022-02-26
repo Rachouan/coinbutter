@@ -37,11 +37,11 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
         let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId }).populate('coin');
 
         let portfolio = await Portfolio.findOne({_id: portfolioId });
-        console.log('Portfolio and asset:',portfolio.length,asset);
+        console.log('Portfolio and asset:',asset);
         
         if(!asset){
             console.log('Create New asset')
-            asset = await Asset.create({coin,amount,portfolioId})
+            asset = await Asset.create({coin,amount:0,portfolioId})
             portfolio.assets.push(asset.id);
             await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
             console.log(portfolio);
@@ -62,10 +62,10 @@ router.post('/:portfolioId/transactions/create', (req, res) => {
 
         switch (transaction.transactionType) {
             case 'sell':
-                newAmount -= transaction.amount
+                newAmount -= transaction.amount;
                 break;
             default :
-                newAmount += transaction.amount
+                newAmount += transaction.amount;
         }
 
         await Asset.findOneAndUpdate({id:asset.id},
