@@ -141,15 +141,13 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
   if (!email) {
     return res
       .status(400)
-      .render("auth/signin", { errorMessage: "Please provide your email." });
+      .render("auth/signin", { errors:{ message:"Please provide your email." },form:{email,password}});
   }
 
   // Here we use the same logic as above
   // - either length based parameters or we check the strength of a password
   if (password.length < 8) {
-    return res.status(400).render("auth/signin", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
+    return res.status(400).render("auth/signin", { errors:{ message:"You're password needs to be at least 8 characters long." },form:{email,password}});
   }
 
   // Search the database for a user with the username submitted in the form
@@ -159,7 +157,7 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
       if (!user) {
         return res
           .status(400)
-          .render("auth/signin", { errorMessage: "Wrong credentials." });
+          .render("auth/signin", { errors:{ message:"Either your email or password is wrong." }, form:{ email, password }});
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
@@ -167,7 +165,7 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
         if (!isSamePassword) {
           return res
             .status(400)
-            .render("auth/signin", { errorMessage: "Wrong credentials." });
+            .render("auth/signin", { errors:{ message:"Wrong credentials." }, form:{ email, password }});
         }
         
         req.session.user = {
@@ -182,13 +180,7 @@ router.post("/signin", isLoggedOut, (req, res, next) => {
         return res.redirect("/dashboard");
       });
     })
-
-    .catch((err) => {
-      // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
-      // you can just as easily run the res.status that is commented out below
-      next(err);
-      // return res.status(500).render("signin", { errorMessage: err.message });
-    });
+    .catch((err) => next(err));
 });
 
 router.post("/signout", isLoggedIn, (req, res) => {
@@ -213,8 +205,8 @@ router.post("/reset-password", isLoggedOut, (req, res) => {
 
       if(!email) throw new Error(`You must enter an email`);
 
-      const user = await User.findOne({email});
-      
+      const user = await User.findOneAndUpdate({ email: email},{reset:true});
+
       if(user){
         const msg = {
           to: email,
@@ -240,9 +232,46 @@ router.post("/reset-password", isLoggedOut, (req, res) => {
 
 router.get("/reset", isLoggedOut, (req, res) => {
 
-  const {reset} = req.params;
-  if(!reset) return res.redirect('/');
-  res.render('auth/reset',{reset});
+  
+  ( async () =>{
+    const {reset} = req.query;
+    try{
+      if(!reset) return res.redirect('/');
+      const user = await User.findOne({_id:reset});
+      if(!user.reset) new ThrowError('User did not request a reset password');
+      res.render('auth/reset',{reset});
+    }catch(err){
+      return res.redirect('/');
+    }
+  })();
+  
 
 });
+
+router.post("/reset", isLoggedOut, (req, res) => {
+
+  const {reset,password} = req.body;
+  if(!reset) return res.redirect('/');
+  if(!password) return res.render('auth/reset',{errors:{message:'Please enter a correct password.'}});
+
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+  if (!regex.test(password)) {
+    return res.status(400).render("auth/reset", {errors: { message: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter." }});
+  }
+
+  ( async () =>{
+    try{
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      await User.findOneAndUpdate({_id:reset},{password: hashedPassword,reset:false});
+      res.render('auth/reset',{success:{message: `We've succesfully reset your password.`}});
+    }catch(err){
+      return res.render('auth/reset',{errors:{message:err.message}});
+    }
+  })();
+  
+
+});
+
 module.exports = router;

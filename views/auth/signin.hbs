@@ -9,12 +9,13 @@
       </div>
       <div class="card border-0 shadow-sm rounded p-4 p-md-5">
          <form action="/auth/signin" method="POST">
+            {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{form.email}}" required>
                 <label for="email">Email address</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="{{form.password}}" required>
                 <label for="password">Password</label>
             </div>
             <div class="mb-3 form-check">
