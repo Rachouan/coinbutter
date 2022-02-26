@@ -11292,7 +11292,16 @@ body {
 .chart .line {
   fill: none;
   stroke: #FF9C41;
-  stroke-width: 10;
+  stroke-width: 3;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

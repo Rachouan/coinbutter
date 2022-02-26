@@ -3,7 +3,7 @@ class Chart {
     this.element = "";
     this.chart = "";
     this.polygon = "";
-    this.width = 20;
+    this.width = 100;
     this.height = 10;
     this.maxValue = 0;
     this.values = [];
@@ -25,7 +25,10 @@ class Chart {
   }
   createChart(element, values) {
     this.getElement(element);
-    this.values = values;
+    for(let i = 0; i<values.length; i+=Math.round(168/7)) {
+      this.values.push(values[i]);
+    }
+    
 
     // Do some calculations
     this.calcMaxValue();
@@ -37,8 +40,10 @@ class Chart {
 
     // Create the <svg>
     this.chart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    this.chart.setAttribute("width", "100%");
-    this.chart.setAttribute("height", "30px");
+    this.chart.classList.add("w-100");
+    this.chart.setAttribute("width", this.element.offsetWidth+"px");
+    this.chart.setAttribute("height", "20px");
+    this.width = this.element.offsetWidth;
 
     // Create the <polygon>
     this.polygon = document.createElementNS(
@@ -71,11 +76,11 @@ class Chart {
       var points = "";
       for (let x = 0; x < this.values.length; x++) {
         var perc = this.values[x] / this.maxValue;
-        var steps = 100 / (this.values.length - 1);
+        var steps = this.element.offsetWidth / (this.values.length - 1);
         var point =
           (steps * x).toFixed(2) +
           "," +
-          (this.height - this.height * perc).toFixed(2) +
+          ((this.height) * perc).toFixed(2) +
           " ";
         // Add this point
         points += point;

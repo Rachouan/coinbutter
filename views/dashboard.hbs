@@ -21,10 +21,10 @@
                                 {{#each portfolios}}
                                     <div class="swiper-slide">
                                         <div class="portfolio-card card me-3 border-0 shadow-sm">
-                                            <div class="card-body">
-                                                <div class="d-flex align-items-start justify-content-between">
+                                            <div class="card-body p-0">
+                                                <div class="d-flex align-items-start justify-content-between border-bottom p-3">
                                                     <a href="/portfolio/{{_id}}" class="text-decoration-none text-dark">
-                                                        <h2 class="lead">{{name}}</h2>
+                                                        <h2 class="lead mb-0">{{name}}</h2>
                                                     </a>
                                                     <div class="dropdown">
                                                         <button class="btn btn-sm btn-outline-darker text-dark py-0" type="button" id="{{portfolio.id}}-dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="line-height:1;">
@@ -40,7 +40,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <a href="/portfolio/{{_id}}" class="text-decoration-none text-dark">
+                                                <a href="/portfolio/{{_id}}" class="d-inline-block text-decoration-none text-dark p-3">
                                                     <h3 class="mb-0">&dollar;{{total}}</h3>
                                                 </a>
                                             </div>
@@ -73,12 +73,11 @@
             </article>
             <article>
                 <div class="card mb-4 border-0 shadow-sm">
-                    <div class="card-header bg-white p-3">
+                    <div class="card-header bg-white py-3">
                         <h2 class="h5 mb-0">Market</h2>
                     </div>
-                    <div class="card-body pb-2 pt-0">
-                        <div class="row p-2 py-md-3 border-bottom">
-                            <div scope="col" class="col flex-shrink-0 text-center" style="max-width: 60px;">#</div>
+                    <div class="card-body p-0">
+                        <div class="row p-2 py-md-3 border-bottom mx-0">
                             <div scope="col" class="col-4 col-md ">Name</div>
                             <div scope="col" class="col">Price</div>
                             <div scope="col" class="col d-none d-lg-block">Market Cap</div>
