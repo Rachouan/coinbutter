@@ -89,7 +89,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
 
           const msg = {
             to: email,
-            from: 'info@rachouan.com',
+            from: process.env.SENDGRID_EMAIL,
             templateId: 'd-383e5812b2d947bc99ba64014ba4e3e0',
             dynamic_template_data: {
               code: code,
@@ -210,7 +210,7 @@ router.post("/reset-password", isLoggedOut, (req, res) => {
       if(user){
         const msg = {
           to: email,
-          from: 'info@rachouan.com',
+          from: process.env.SENDGRID_EMAIL,
           templateId: 'd-6626e715320d4f11b7f816020afe1e44',
           dynamic_template_data: {
             reset: user.id
