@@ -27,7 +27,7 @@ $(document).ready(function() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
-
+    
     const swiper = new Swiper('.swiper', {
       // Default parameters
       slidesPerView: 'auto',
@@ -57,6 +57,11 @@ document.addEventListener(
         updateTotal(priceField,amountField,totalField);
       });
     })
+    
+    const charts = document.querySelectorAll('.chart');
+    charts.forEach(chart => new Chart().createChart(chart,chart.dataset.graph.split(',')));
+    //const chart = new Chart();
+    //chart.createChart('.chart',[5,10,15,30,1,3,5,20]);
   },
   false
 );

@@ -129,3 +129,12 @@ body{
         height: 20px;
     }
 }
+
+.chart{
+    .line{
+        fill: none;
+        stroke: $primary;
+        stroke-width: 10;
+
+    }
+}

@@ -11289,4 +11289,10 @@ body {
   height: 20px;
 }
 
+.chart .line {
+  fill: none;
+  stroke: #FF9C41;
+  stroke-width: 10;
+}
+
 /*# sourceMappingURL=style.css.map */
