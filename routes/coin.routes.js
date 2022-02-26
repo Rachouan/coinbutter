@@ -25,7 +25,7 @@ router.get("/:coinId", (req, res, next) => {
     Coin.findOne({id:coinId})
     .then(coin => {
         console.log(coin)
-        res.render('assets/asset',{coin})
+        res.render('coins/coin',{coin})
     })
     .catch(err => console.log(err));
    
