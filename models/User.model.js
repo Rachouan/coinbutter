@@ -23,7 +23,7 @@ const userSchema = new Schema(
       required: 'Password is required',
     },
     active: {type:Boolean, default: false},
-    reset:false
+    reset: {type:Boolean, default: false}
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
