@@ -17,6 +17,10 @@ router.get("/activate", (req, res, next) => {
                 if(!activateDoc){
                     return res.render('activation/activate',{errors:{message:'You code is not correct.'}});
                 }
+
+                if(activateDoc.active){
+                    return res.redirect('/dashboard');
+                }
                 
                 await Activation.findByIdAndUpdate({_id:activateDoc._id},{active:true});
                 const user = await User.findOneAndUpdate({_id:activateDoc.user},{active:true});
@@ -27,11 +31,13 @@ router.get("/activate", (req, res, next) => {
                 }
                 
                 res.render('activation/activate');
+            }else{
+                return res.redirect('/dashboard');
             }
             
             
         }catch(err){
-            console.log(err)
+            return res.redirect('/dashboard');
         }
         
     })();

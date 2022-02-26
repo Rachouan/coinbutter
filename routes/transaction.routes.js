@@ -12,7 +12,7 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // Routes
-router.get('/:portfolioId/transactions/create', (req, res) => {
+router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     const {portfolioId} = req.params;
     Coin.find().sort('market_cap_rank')
     .then(coins => res.render('transactions/create',{portfolioId,coins}))
@@ -22,63 +22,67 @@ router.get('/:portfolioId/transactions/create', (req, res) => {
 }); 
 
 
-router.post('/:portfolioId/transactions/create', (req, res) => {
-    const {portfolioId} = req.params;
-    const user = req.session.user.id;
-    const {price, currency, amount,coin, total, transactionType, note, created} = req.body; 
+router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
 
-    console.log({price, currency, amount,coin, total, transactionType, note, created});
+    ( async () => {
 
-    //console.log({ coin, portfolioId },{price, currency, amount, total, transactionType, note, created})
-    // Check if asset already in user's portfolio and update or create
+        const {portfolioId} = req.params;
+        const user = req.session.user.id;
+        const {price, currency, amount,coin, total, transactionType, note, created} = req.body; 
 
-    async function findIfAlreadyHere() {
+        try{
 
-        let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId }).populate('coin');
+            let asset = await Asset.findOne({ coin:coin, portfolioId: portfolioId }).populate('coin');
 
-        let portfolio = await Portfolio.findOne({_id: portfolioId });
-        console.log('Portfolio and asset:',asset);
-        
-        if(!asset){
-            console.log('Create New asset')
-            asset = await Asset.create({coin,amount:0,portfolioId})
-            portfolio.assets.push(asset.id);
-            await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
-            console.log(portfolio);
-        }
-        
-        const transaction = await Transaction.create({
-            price:price, 
-            currency:currency, 
-            asset: asset.id,
-            amount:amount, 
-            total:total, 
-            transactionType:transactionType, 
-            note:note, 
-            created:created
-        })
-
-        let newAmount = asset.amount;
-
-        switch (transaction.transactionType) {
-            case 'sell':
-                newAmount -= transaction.amount;
-                break;
-            default :
-                newAmount += transaction.amount;
-        }
-
-        await Asset.findOneAndUpdate({id:asset.id},
-            {
-                amount:newAmount,
-                $push: { transactions: transaction.id  }
+            let portfolio = await Portfolio.findById(portfolioId);
+            console.log('Asset:',asset);
+            
+            if(!asset){
+                console.log('Create New asset')
+                asset = await Asset.create({coin,amount:0,portfolioId})
+                portfolio.assets.push(asset.id);
+                await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
+                console.log(portfolio);
             }
-        );
+            
+            const transaction = await Transaction.create({
+                price:price, 
+                currency:currency, 
+                asset: asset.id,
+                amount:amount, 
+                total:total, 
+                transactionType:transactionType, 
+                note:note, 
+                created:created
+            })
 
-        res.redirect(`/portfolio/${portfolio._id}`);
-        
-    }
-    findIfAlreadyHere();
+            let newAmount = asset.amount;
+
+            switch (transaction.transactionType) {
+                case 'sell':
+                    newAmount -= transaction.amount;
+                    break;
+                default :
+                    newAmount += transaction.amount;
+            }
+            
+            const updatedAsset = await Asset.findByIdAndUpdate(asset.id,
+                {
+                    amount:newAmount,
+                    $push: { transactions: transaction.id  }
+                }
+            );
+                
+            console.log('updated Asset',updatedAsset);
+            res.redirect(`/portfolio/${portfolio._id}`);
+
+        }catch(err){
+            res.json(err);
+        }
+
+    })();
+
+    
 });
 
 // Module export

@@ -49,12 +49,32 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
 
             // Total PnL
             asset.pnl = asset.coin.current_price * asset.amount - (asset.avgBuyPrice * asset.amount);
-
+            //res.json(asset);
             res.render('assets/asset',{asset,portfolio,coin:asset.coin,transactions:asset.transactions})
             //res.json(asset.percentage);
         }catch(err){
             res.json(err);
         }
+    })();
+});
+
+router.post("/portfolio/:portfolioId/asset/:assetId/delete", (req, res, next) => {
+    
+    ( async () =>{
+
+        const {assetId} = req.params;
+        const {portfolioId} = req.params;
+
+        if(!assetId && portfolioId) return res.redirect(`/portfolio/${portfolioId}`);
+        if(!assetId && !portfolioId) return res.redirect(`/portfolio/${portfolioId}`);
+
+        try{
+            await Asset.findOneAndDelete({id:assetId});
+            res.redirect(`/portfolio/${portfolioId}`);
+        }catch(err){
+            res.redirect('/dashboard');
+        }
+
     })();
 });
 
