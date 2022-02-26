@@ -10,27 +10,24 @@ const Transaction = require("../models/Transaction.model.js");
 router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
     
 
-    
-    // .then(asset => {
-    //     //console.log(asset.transactions[0].price);
-    //     asset.coin.total_value = helper.amountFormatter(asset.amount * asset.coin.current_price);
-    //     assetValue = asset.coin.total_value;
-
-    //     res.render('assets/asset',{coin:asset.coin,transactions:asset.transactions,portfolio:asset.portfolioId,percentage:percentage, avgBuyPrice:avgBuyPrice, totalAmount:totalAmount, pnl:pnl}) 
-    // })
 
     ( async () =>{
 
         const {assetId} = req.params;
+        const {portfolioId} = req.params;
 
         try{
             const asset = await Asset.findOne({id:assetId}).populate('coin transactions portfolioId');
+            const portfolio = await Portfolio.findById(portfolioId).populate('assets');
 
             let total = 0;
             let num = 0;
+
+            // % holdings
+            //asset.percentage = (asset.amount * asset.coin.current_price * 100) / ;
             
+            // Avg Buy Price
             asset.transactions.forEach(transaction => {
-                console.log(transaction);
                 if(transaction.transactionType === 'buy'){
                     total += transaction.amount * transaction.price;
                     num += transaction.amount;
@@ -38,8 +35,13 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
             });
 
             asset.avgBuyPrice = total / num;
-            res.render('assets/asset',{asset})
-            //res.json(asset.avgBuyPrice);
+            console.log(asset.avgBuyPrice);
+
+            // Total PnL
+            asset.pnl = asset.coin.current_price * asset.amount - (asset.avgBuyPrice * asset.amount);
+
+            //res.render('assets/asset',{asset})
+            res.json(asset.avgBuyPrice);
         }catch(err){
             res.json(err);
         }
@@ -48,16 +50,6 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
 
         // let transactions = await Transaction.find({asset:assetId, transactionType:"buy"})
         // let asset = await Asset.findById(assetId)
-
-    
-        // Avg buy price
-        // for (let i=0; i<transactions.length; i++){
-        //     denominator =+ transactions[i].amount * transactions[i].price;
-        //     numerator =+ transactions[i].amount;
-        // }
-        // avgBuyPrice = denominator / numerator;
-
-        // console.log(avgBuyPrice)
 
         // // Total PnL
         // pnl = asset.coin.total_value - (avgBuyPrice * asset.amount);
