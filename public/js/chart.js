@@ -25,13 +25,14 @@ class Chart {
   }
   createChart(element, values) {
     this.getElement(element);
-    for(let i = 0; i<values.length; i+=Math.round(168/7)) {
+    for(let i = 0; i<values.length; i+=Math.round(168/24)) {
       this.values.push(values[i]);
     }
     
 
     // Do some calculations
     this.calcMaxValue();
+    //this.values = this.values.map(val => val/this.maxValue);
     this.calcPoints();
     this.calcMeasure();
 
