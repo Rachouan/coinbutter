@@ -1,7 +1,18 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const fileUploader = require('../config/cloudinary.config');
+
+// ℹ️ Handles password encryption
+const bcrypt = require("bcrypt");
+
+// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
+const saltRounds = 10;
+
+// Require the User model in order to interact with the database
 const Portfolio = require("../models/Portfolio.model");
 const User = require("../models/User.model");
+
+// Routes
 
 router.get("/:userId/edit", (req, res, next) => {
     const {userId} = req.params
@@ -12,10 +23,17 @@ router.get("/:userId/edit", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
-router.post("/:userId/edit", (req, res) => {
-    const { email,firstName,lastName, password } = req.body;
+router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, next) => {
+
+    const { email,firstName,lastName,password, existingImage } = req.body
     const { userId } = req.params
 
+    if (req.file) {
+        profileImage = req.file.path;
+    } else {
+        profileImage = existingImage;
+    }
+    
     if (!email) {
         return res
         .status(400)
@@ -35,17 +53,23 @@ router.post("/:userId/edit", (req, res) => {
         errorMessage: { password: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter." }, form:{ email,firstName,lastName, password }});
     }
 
-    User.findOneAndUpdate({_id:userId},{email,firstName,lastName,password})
-    .then(user => {
-        console.log("Updated :",user)
-        res.redirect("/", {user});
-    });
-
-    Portfolio.findOne({user:userId})
-    .then(folio => {
-        res.redirect(`/${folio._id}`, {user,folio});
+    return bcrypt
+    .genSalt(saltRounds)
+    .then((salt) => bcrypt.hash(password, salt))
+    .then((hashedPassword) => {
+        // Find the user and Update it
+        User.findOneAndUpdate({_id:userId},{
+            email,
+            firstName,
+            lastName,
+            password:hashedPassword,
+            profileImage
+        }, { new: true })
+        .then((user) =>
+            res.json(user)
+            //res.redirect("/")
+        )
     })
-    .catch(err => console.log(err));
 });
 
 module.exports = router;

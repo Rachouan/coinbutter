@@ -27,7 +27,7 @@
                     <img src="{{connectedUser.image}}" alt="user profile picture" class="m-0 me-1 rounded" width="25"/>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/user/{{connectedUser.id}}/edit">Profile Settings</a></li>
+                    <li><a class="dropdown-item" href="/{{connectedUser.id}}/edit">Profile Settings</a></li>
                     <li>
                     <form action="/auth/signout" method="post">
                         <button class="dropdown-item text-danger">Sign Out</button>
