@@ -26,9 +26,8 @@
                 <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="/user" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{connectedUser.image}}" alt="user profile picture" class="m-0 me-1 rounded" width="25"/>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/user">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/user/{{connectedUser.id}}/edit">Profile Settings</a></li>
                     <li>
                     <form action="/auth/signout" method="post">
                         <button class="dropdown-item text-danger">Sign Out</button>
