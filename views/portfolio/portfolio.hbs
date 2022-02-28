@@ -83,13 +83,13 @@
                                 </div>
                                 <div class="col d-none d-lg-block">
                                     <div>
-                                        <p class="mb-0">$39,000.00</h3>
-                                        <p class="mb-0 text-success"><small>+6%</small></p>
+                                        <p class="mb-0">${{asset.avgBuyPrice}}</h3>
+                                        {{!-- <p class="mb-0 text-success"><small>-6%</small></p> --}}
                                     </div>
                                 </div>
                                 <div class="col d-none d-lg-block">
                                     <div>
-                                        <p class="mb-0 text-success">+$10,000.00</h3>
+                                        <p class="mb-0 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}">${{pnl}}</h3>
                                     </div>
                                 </div>
                                 <div class="col d-none d-lg-block">

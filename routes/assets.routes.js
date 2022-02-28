@@ -36,7 +36,7 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
                 b.totalAmount =  helper.amountFormatter(amount);
                 return a + amount;
             } ,0);
-            asset.percentage = (asset.amount * asset.coin.current_price * 100) / portfolio.total;
+            asset.percentage = (asset.value * 100) / portfolio.total;
 
             // Avg Buy Price
             asset.transactions.forEach(transaction => {
@@ -49,9 +49,11 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
 
             // Total PnL
             asset.pnl = asset.coin.current_price * asset.amount - (asset.avgBuyPrice * asset.amount);
-            //res.json(asset);
+
             res.render('assets/asset',{asset,portfolio,coin:asset.coin,transactions:asset.transactions})
+            //res.json(asset);
             //res.json(asset.percentage);
+            
         }catch(err){
             res.json(err);
         }

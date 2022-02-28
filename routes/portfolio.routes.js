@@ -10,6 +10,7 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 const helper = require("../helpers/helpers.js");
+
 // Routes
 
 router.get("/create", (req, res) => {
@@ -39,7 +40,6 @@ router.post('/create', (req, res) => {
 
 router.get('/:portfolioId', (req, res, next) => {
   const {portfolioId} = req.params;
-  
   
   Portfolio.findOne({_id:portfolioId})
     .populate({

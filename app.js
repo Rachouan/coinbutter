@@ -16,9 +16,6 @@ const app = express();
 
 const path = require('path');
 
-// Axios
-/* const axios = require('axios'); */
-
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 hbs.registerPartials(__dirname + '/views/partials');
