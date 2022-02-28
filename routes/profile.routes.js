@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 // Require the User model in order to interact with the database
-const Portfolio = require("../models/Portfolio.model");
+// const Portfolio = require("../models/Portfolio.model");
 const User = require("../models/User.model");
 
 // Routes
@@ -28,6 +28,7 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
     const { email,firstName,lastName,password, existingImage } = req.body
     const { userId } = req.params
 
+    let profileImage;
     if (req.file) {
         profileImage = req.file.path;
     } else {

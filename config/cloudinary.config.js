@@ -14,7 +14,6 @@ const storage = new CloudinaryStorage({
   params: {
     allowed_formats: ['jpg', 'png'],
     folder: 'coinbutter'
-    // resource_type: 'raw' => this is in case you want to upload other type of files, not just images
   }
 });
  
