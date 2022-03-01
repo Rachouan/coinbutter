@@ -11299,6 +11299,27 @@ body {
   box-shadow: 10px 10px #888888;
 }
 
+.navbar .burger-menu {
+  position: relative;
+  z-index: 9999;
+}
+.navbar .navbar-dynamic {
+  position: static;
+}
+@media only screen and (max-width: 991px) {
+  .navbar .navbar-dynamic {
+    width: 90%;
+    max-width: 375px;
+    right: 0%;
+    top: 0;
+    height: 100%;
+    position: fixed;
+    background: #fff;
+    border-left: 1px solid #e6e3de;
+    z-index: 9998;
+  }
+}
+
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
