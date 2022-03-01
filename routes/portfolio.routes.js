@@ -62,7 +62,7 @@ router.get('/:portfolioId', (req, res, next) => {
 
         //Total Value in BTC
         Coin.findOne({id:"bitcoin"}).then((btc) => {
-          portfolio.total_b = portfolioTotal / btc.current_price
+          portfolio.total_b = (portfolioTotal / btc.current_price).toFixed(8)
         })
 
         res.render('portfolio/portfolio',{portfolio})
