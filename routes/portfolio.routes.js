@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const Portfolio = require("../models/Portfolio.model.js");
 const Asset = require("../models/Asset.model.js");
 const User = require("../models/User.model.js");
+const Coin = require("../models/Coin.model.js");
+
 
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
@@ -57,10 +59,16 @@ router.get('/:portfolioId', (req, res, next) => {
           return a + amount;
         } ,0);
         portfolio.total = helper.amountFormatter(portfolioTotal);
+
+        //Total Value in BTC
+        Coin.findOne({id:"bitcoin"}).then((btc) => {
+          portfolio.total_b = portfolioTotal / btc.current_price
+        })
+
         res.render('portfolio/portfolio',{portfolio})
     })
     .catch(err => console.log(err));
-}); 
+});
 
 router.get("/:portfolioId/edit", (req, res) => {
   const {portfolioId} = req.params;
