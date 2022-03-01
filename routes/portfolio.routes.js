@@ -47,25 +47,41 @@ router.get('/:portfolioId', (req, res, next) => {
     .populate({
       path : 'assets',
       populate : {
-        path : 'coin'
+        path : 'coin transactions',
       }
     })
     .then(portfolio => {
-        let amount = 0;
+      let amount = 0;
+      let total = 0;
+      let num = 0;
 
-        let portfolioTotal = portfolio.assets.reduce((a,b) => {
-          amount = b.amount * b.coin.current_price;
-          b.totalAmount =  helper.amountFormatter(amount);
-          return a + amount;
-        } ,0);
-        portfolio.total = helper.amountFormatter(portfolioTotal);
+      let portfolioTotal = portfolio.assets.reduce((a,b) => {
+        amount = b.amount * b.coin.current_price;
+        b.totalAmount =  helper.amountFormatter(amount);
+        
+        b.transactions.forEach(transaction => {
+          if(transaction.transactionType === 'buy'){
+            total += transaction.amount * transaction.price;
+            num += transaction.amount;
+          }
+        });
 
-        //Total Value in BTC
-        Coin.findOne({id:"bitcoin"}).then((btc) => {
-          portfolio.total_b = (portfolioTotal / btc.current_price).toFixed(8)
-        })
+        b.avgBuyPrice = total / num;
 
-        res.render('portfolio/portfolio',{portfolio})
+        total = 0;
+        num = 0;
+
+        return a + amount;
+      } ,0);
+      
+      portfolio.total = helper.amountFormatter(portfolioTotal);
+
+      //Total Value in BTC
+      Coin.findOne({id:"bitcoin"}).then((btc) => {
+        portfolio.total_b = (portfolioTotal / btc.current_price).toFixed(8)
+      })
+
+      res.render('portfolio/portfolio',{portfolio})
     })
     .catch(err => console.log(err));
 });
