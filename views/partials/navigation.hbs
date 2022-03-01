@@ -1,11 +1,11 @@
 <nav class="navbar navbar-light bg-white border-bottom">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand mb-0" href="/"><img src="/images/assets/coinbutter.png" class="logo"/></a>
         <button class="burger-menu btn btn-sm btn-darker d-inline-block d-lg-none" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar navbar-dynamic flex-fill" id="navbarSupportedContent">
-            <ul class="navbar-nav flex-row me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav flex-lg-row me-auto mb-2 mb-lg-0">
                 {{#if connectedUser}}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/dashboard">Dashboard</a>
@@ -17,7 +17,7 @@
                 
                 {{/if}}
             </ul>
-            <ul class="navbar-nav flex-row  ms-auto" aria-labelledby="navbar">
+            <ul class="navbar-nav flex-lg-row  ms-auto" aria-labelledby="navbar">
                 <li class="nav-item">
                     <a class="nav-link" href="/help">Help?</a>
                 </li>
