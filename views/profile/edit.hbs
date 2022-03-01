@@ -3,18 +3,22 @@
       <div class="text-center mb-4">
         <h2>Edit your profile</h2>
       </div>
-      <div class="card border-0 shadow-sm rounded p-4 p-md-5">
-         <form action="/{{user._id}}/edit" method="POST" enctype="multipart/form-data">
+      {{#if errors.success}} <div class="alert alert-success py-2 mb-3" role="alert">{{errors.success}}</div> {{/if}}
+      <div class="card border-0 shadow-sm rounded p-4 mb-3 ">
+         <h2 class="lead mb-4">Account Information</h2>
+         <form action="/profile/{{userId}}/edit" method="POST" enctype="multipart/form-data">
 
-            {{#if success.message}} <div class="alert alert-success py-2" role="alert">{{success.message}}</div> {{/if}}
-            {{#if errorMessage.message}} <div class="alert alert-danger py-2" role="alert">{{errorMessage.message}}</div> {{/if}}
+            {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
             
-             <div class="form-group">
-               <label>Image:
-                  <input type="file" name="profile-picture" class="form-control-file" />
-                  <input type="text" name="existingImage" hidden value="{{profileImage}}">
-               </label>
+            <div class="rounded bg-light border p-3 mb-3 ">
+                <div class="form-group">
+                  <label>Profile:
+                     <input type="file" name="profile-picture" class="form-control-file" />
+                     <input type="text" name="existingImage" hidden value="{{profileImage}}">
+                  </label>
+               </div>
             </div>
+            
             <div class="form-floating mb-3">
                 <input type="text" class="form-control shadow-sm" id="firstName" name="firstName" value={{user.firstName}}>
                 <label for="firstName">First name</label>
@@ -26,17 +30,33 @@
              <div class="form-floating mb-3">
                 <input type="email" class="form-control shadow-sm" id="email" name="email" placeholder="Email" value="{{user.email}}" required>
                 <label for="email">Email address *</label>
-                {{#if errorMessage.email}} <div class="form-text text-danger">{{errorMessage.email}}</div> {{/if}}
             </div>
-            <div class="form-floating mb-4">
-                <input type="password" class="form-control shadow-sm {{#if errorMessage.password}}is-invalid{{/if}}" id="password" name="password" placeholder="Password" required value="{{form.password}}">
-                <label for="password">Password *</label>
-                {{#if errorMessage.password}} <div class="form-text text-danger">{{errorMessage.password}}</div> {{/if}}
-               <div id="passwordHelp" class="form-text small text-center mt-2">Password must be at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.</div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 btn-lg">Update</button>
+            <button type="submit" class="btn btn-primary w-100">Save</button>
          </form>
       </div>
-      <p class="py-3 text-muted small text-center">Copyright&copy; Coinbutter 2022. Made with love in Lisbon.</p>
+
+      <div class="card border-0 shadow-sm rounded p-4">
+         <h2 class="lead mb-4">Update Password</h2>
+         <form action="/profile/{{userId}}/edit/password" method="POST">
+               {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
+               <div class="form-floating mb-3">
+                  <input type="hidden" name="reset" value="{{reset}}">
+                  <input type="password" class="form-control shadow-sm" id="oldPassword" name="oldPassword" placeholder="Password" required>
+                  <label for="oldPassword">Old Password *</label>
+               </div>
+               <div class="form-floating mb-3">
+                  <input type="hidden" name="reset" value="{{reset}}">
+                  <input type="password" class="form-control shadow-sm" id="password" name="password" placeholder="Password" required>
+                  <label for="nemail">New Password *</label>
+                  <div id="passwordHelp" class="form-text small text-left mt-2">Password must be at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.</div>
+               </div>
+               <div class="form-floating mb-3">
+                  <input type="hidden" name="reset" value="{{reset}}">
+                  <input type="password" class="form-control shadow-sm" id="repeatPassword" name="repeatPassword" placeholder="Password" required>
+                  <label for="repeatPassword">Repeat New Password *</label>
+               </div>
+               <button type="submit" class="btn btn-primary w-100">Update</button>
+         </form>
+      </div>
    </div>
 </section>

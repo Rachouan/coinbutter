@@ -18,57 +18,26 @@ router.get("/:userId/edit", (req, res, next) => {
     const {userId} = req.params
     User.findOne({_id:userId})
     .then(user => {
-        res.render("profile/edit", {user});
+        res.render("profile/edit", {userId,user});
     })
     .catch(err => console.log(err));
 });
 
 router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, next) => {
 
-    const { email,firstName,lastName,password, existingImage } = req.body
-    const { userId } = req.params
-
-    let profileImage;
-    if (req.file) {
-        profileImage = req.file.path;
-    } else {
-        profileImage = existingImage;
-    }
-
-    console.log(req.file)
+    const { email,firstName,lastName, existingImage } = req.body;
+    const { userId } = req.params;
     
-    if (!email) {
-        return res
-        .status(400)
-        .render(`/${userId}/edit`, { errorMessage: {email: "Please provide your email."}, form:{ email,firstName,lastName, password }});
-    }
+    (async () =>{
 
-    if (password.length < 8) {
-        return res.status(400).render(`/${userId}/edit`, {
-        errorMessage: {password: "Your password needs to be at least 8 characters long."}, form:{ email,firstName,lastName, password }});
-    }
+        try{
 
-    //   ! This use case is using a regular expression to control for special characters and min length
-    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+            let profileImage = req.file ? req.file.path : existingImage;
 
-    if (!regex.test(password)) {
-        return res.status(400).render(`/${userId}/edit`, {
-        errorMessage: { password: "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter." }, form:{ email,firstName,lastName, password }});
-    }
+            if(!email) throw 'Please provide your email.';
 
-    return bcrypt
-    .genSalt(saltRounds)
-    .then((salt) => bcrypt.hash(password, salt))
-    .then((hashedPassword) => {
-        // Find the user and Update it
-        User.findOneAndUpdate({_id:userId},{
-            email,
-            firstName,
-            lastName,
-            password:hashedPassword,
-            profileImage
-        }, { new: true })
-        .then((user) =>{
+            const user = await User.findOneAndUpdate({_id:userId},{email,firstName,lastName,profileImage}, { new: true });
+        
             req.session.user = {
                 id:user._id,
                 name:user.firstName,
@@ -76,13 +45,61 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
                 darkmode: user.darkmode,
                 active:user.active,
             };
-          res.locals.connectedUser = req.session.user;
-        
-          res.render("profile/edit", {user,success:{message:'Successfully updated your profile.'}});
+            res.locals.connectedUser = req.session.user;
+
+            res.render("profile/edit", {userId,user:{ email,firstName,lastName,profileImage },success:{message:'Successfully updated your profile.'}});
+
+        }catch(err){
+            console.log(err);
+            return res.status(400).render('profile/edit', { userId, errors: {message:err}, user:{ email,firstName,lastName,profileImage }});
+        }
+
+    })();
+
+});
+
+router.get("/:userId/edit/password", (req, res, next) => { 
+    const { userId } = req.params;
+    if(!userId) res.redirect(`/`);
+    res.redirect(`/profile/${userId}/edit`);
+});
+
+router.post("/:userId/edit/password", (req, res, next) => {
+
+    console.log('Updating Password');
+    
+    const { oldPassword,password,repeatPassword } = req.body;
+    const { userId } = req.params;
+
+    
+
+    ( async () =>{
+
+        try{
             
-            //res.redirect("/")
-        });
-    })
+            if(!oldPassword)throw 'We need your old password';
+
+            let user = await User.findOne({id:userId});
+            const isSamePassword = await bcrypt.compare(oldPassword, user.password)
+
+            if (!isSamePassword) throw 'Your old password is not correct.';
+            if(password !== repeatPassword) throw 'Repeat your new password correctly';
+            if (password.length < 8)  throw "Your password needs to be at least 8 characters long.";
+            if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(password)) throw "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.";
+
+            const salt = await bcrypt .genSalt(saltRounds);
+            const hashedPassword = await bcrypt.hash(password, salt);
+            user = await User.findOneAndUpdate({_id:userId},{password:hashedPassword}, { new: true });
+
+            res.render("profile/edit", {user,success:{message:'Successfully updated your password.'}});
+            
+        }catch(err){
+            return res.status(400).render('profile/edit', { userId, errors: {message:err}, form:{ oldPassword,password,repeatPassword }});
+        }
+
+    })();
+
+    
 });
 
 module.exports = router;
