@@ -2,17 +2,12 @@ const router = require("express").Router();
 const mongoose = require("mongoose");
 const fileUploader = require('../config/cloudinary.config');
 
-// ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 
-// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
-// const Portfolio = require("../models/Portfolio.model");
 const User = require("../models/User.model");
 
-// Routes
 
 router.get("/:userId/edit", (req, res, next) => {
     const {userId} = req.params
