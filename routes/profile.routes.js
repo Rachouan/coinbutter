@@ -34,6 +34,8 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
     } else {
         profileImage = existingImage;
     }
+
+    console.log(req.file)
     
     if (!email) {
         return res
@@ -66,10 +68,20 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
             password:hashedPassword,
             profileImage
         }, { new: true })
-        .then((user) =>
-            res.json(user)
+        .then((user) =>{
+            req.session.user = {
+                id:user._id,
+                name:user.firstName,
+                image:user.profileImage,
+                darkmode: user.darkmode,
+                active:user.active,
+            };
+          res.locals.connectedUser = req.session.user;
+        
+          res.render("profile/edit", {user,success:{message:'Successfully updated your profile.'}});
+            
             //res.redirect("/")
-        )
+        });
     })
 });
 
