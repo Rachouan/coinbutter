@@ -71,9 +71,11 @@ router.get('/:portfolioId', (req, res, next) => {
         total = 0;
         num = 0;
 
+        b.pnl = b.coin.current_price * b.amount - (b.avgBuyPrice * b.amount);
+
         return a + amount;
       } ,0);
-      
+
       portfolio.total = helper.amountFormatter(portfolioTotal);
 
       //Total Value in BTC
