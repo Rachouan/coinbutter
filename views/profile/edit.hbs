@@ -8,13 +8,13 @@
          <h2 class="lead mb-4">Account Information</h2>
          <form action="/profile/{{userId}}/edit" method="POST" enctype="multipart/form-data">
 
-            {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
+            {{#if errors.profile.message}} <div class="alert alert-danger py-2" role="alert">{{errors.profile.message}}</div> {{/if}}
             
             <div class="rounded bg-light border p-3 mb-3 ">
                 <div class="form-group">
                   <label>Profile:
                      <input type="file" name="profile-picture" class="form-control-file" />
-                     <input type="text" name="existingImage" hidden value="{{profileImage}}">
+                     <input type="text" name="existingImage" hidden value="{{user.profileImage}}">
                   </label>
                </div>
             </div>
@@ -38,7 +38,7 @@
       <div class="card border-0 shadow-sm rounded p-4">
          <h2 class="lead mb-4">Update Password</h2>
          <form action="/profile/{{userId}}/edit/password" method="POST">
-               {{#if errors.message}} <div class="alert alert-danger py-2" role="alert">{{errors.message}}</div> {{/if}}
+               {{#if errors.password.message}} <div class="alert alert-danger py-2" role="alert">{{errors.password.message}}</div> {{/if}}
                <div class="form-floating mb-3">
                   <input type="hidden" name="reset" value="{{reset}}">
                   <input type="password" class="form-control shadow-sm" id="oldPassword" name="oldPassword" placeholder="Password" required>

@@ -29,6 +29,8 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
 
             let profileImage = req.file ? req.file.path : existingImage;
 
+            console.log(profileImage);
+
             if(!email) throw 'Please provide your email.';
 
             const user = await User.findOneAndUpdate({_id:userId},{email,firstName,lastName,profileImage}, { new: true });
@@ -46,7 +48,7 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
 
         }catch(err){
             console.log(err);
-            return res.status(400).render('profile/edit', { userId, errors: {message:err}, user:{ email,firstName,lastName,profileImage }});
+            return res.status(400).render('profile/edit', { userId, errors: {profile:{message:err}}, user:{ email,firstName,lastName,profileImage }});
         }
 
     })();
@@ -86,10 +88,11 @@ router.post("/:userId/edit/password", (req, res, next) => {
             const hashedPassword = await bcrypt.hash(password, salt);
             user = await User.findOneAndUpdate({_id:userId},{password:hashedPassword}, { new: true });
 
-            res.render("profile/edit", {user,success:{message:'Successfully updated your password.'}});
+            console.log(user);
+            res.render("profile/edit", {userId,user,success:{message:'Successfully updated your password.'}});
             
         }catch(err){
-            return res.status(400).render('profile/edit', { userId, errors: {message:err}, form:{ oldPassword,password,repeatPassword }});
+            return res.status(400).render('profile/edit', { userId, errors: {password:{message:err}}, form:{ oldPassword,password,repeatPassword }});
         }
 
     })();
