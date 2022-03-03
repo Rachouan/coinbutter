@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const portfolioSchema = new Schema(
   { 
-    id: { type:String, required: true},
     name: String,
     amount: Number,
     assets: [{ type: Schema.Types.ObjectId, ref: 'Asset' }],

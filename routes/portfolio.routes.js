@@ -31,7 +31,7 @@ router.post('/create', (req, res) => {
     return res.render('portfolio/create',{errors:{message:'Choose a name thats longer than 2 characters'},portfolio:{_id:portfolioId,name,currency}})
   }
 
-  Portfolio.create({ id:helper.concatString(name),name,value:0,assets:[],user,currency })
+  Portfolio.create({name,value:0,assets:[],user,currency })
   .then(portfolio => {
     console.log(portfolio);
     res.redirect(`/portfolio/${portfolio._id}`);

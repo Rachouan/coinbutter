@@ -17,7 +17,6 @@ router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     Coin.find().sort('market_cap_rank')
     .then(coins => res.render('transactions/create',{portfolioId,coins}))
     .catch(err => console.log(err));
-    console.log('HELLO')
 }); 
 
 
@@ -27,7 +26,8 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
 
         const {portfolioId} = req.params;
         const user = req.session.user.id;
-        const {price, currency, amount,coin, total, transactionType, note, created} = req.body; 
+        const {price, currency, amount,coin, total, transactionType, note} = req.body; 
+        let {created} = req.body;
 
         try{
 
@@ -43,6 +43,8 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
                 await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
                 console.log(portfolio);
             }
+
+            created = !created? Date.now():created;
             
             const transaction = await Transaction.create({
                 price:price, 
@@ -72,11 +74,10 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
                 }
             );
                 
-            console.log('updated Asset',updatedAsset);
             res.redirect(`/portfolio/${portfolio._id}`);
 
         }catch(err){
-            res.json(err);
+            console.log(err);
         }
 
     })();
@@ -84,6 +85,37 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     
 });
 
+
+
+router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',isLoggedIn, (req, res) => {
+
+    ( async () => {
+
+        const {portfolioId,assetId,transactionId} = req.params;
+
+        try{
+            console.log('DELETEING TRANSACTION');
+            await Transaction.findOneAndDelete({_id:transactionId})
+            const asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
+            console.log('Updating asset => ',asset.transactions.length);
+            if(asset.transactions.length > 0) { 
+                let total = asset.transactions.reduce((a, b) => a += b.type === 'buy' ? -b.amount : b.amount,0);
+                await Asset.findOneAndUpdate({_id:assetId},{amount:total});
+                return res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
+            }
+            
+            await Asset.findOneAndDelete({_id:assetId});
+            res.redirect(`/portfolio/${portfolioId}/`);
+
+        }catch(err){
+            console.log(err);
+            res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
+        }
+
+    })();
+
+    
+});
 // Module export
 
 module.exports = router;
