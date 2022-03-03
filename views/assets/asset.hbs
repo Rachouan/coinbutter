@@ -27,11 +27,11 @@
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Avg Buy price</p>
-                                <p class="h5">&dollar;{{asset.avgBuyPrice}}</p>
+                                <p class="h5">&dollar;{{#round4 asset.avgBuyPrice}}{{/round4}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Total PnL</p>
-                                <p class="h5">${{#amountFormatter asset.pnl}}{{/amountFormatter}}</p>
+                                <p class="h5">&dollar;{{#checkIfUpOrDownFormatted asset.pnl}}{{/checkIfUpOrDownFormatted}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Sell target</p>
@@ -43,28 +43,30 @@
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Transactions</h2>
-                        {{#each transactions}}
-                        <div class="row">
-                            <div class="col-6 col-md">
-                                <p class="text-muted mb-2">{{created}}</p>
-                                <p class="h4">Date</p>
-                            </div>
-                            <div class="col-6 col-md">
-                                <p class="text-muted mb-2">{{amount}}</p>
-                                <p class="h4">#Amount</p>
-                            </div>
-                            <div class="col-6 col-md">
-                                <p class="text-muted mb-2">{{price}}</p>
-                                <p class="h4">Price</p>
-                            </div>
-                            <div class="col-6 col-md">
-                                <p class="text-muted mb-2">{{transactionType}}</p>
-                                <p class="h4">Type</p>
-                            </div>
-                        </div>
-                        {{/each}}
+                        <thead>
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Type</th>
+                                </tr>
+                            </thead>
+                            {{#each transactions}}
+                            <tbody>
+                                <tr>
+                                <th scope="row">{{#DateFormater created}}{{/DateFormater}}</th>
+                                <td>{{amount}}</td>
+                                <td>&dollar;{{price}}</td>
+                                <td>{{transactionType}}</td>
+                                </tr>
+                            </tbody>
+                            {{/each}}
+                            </table>
                     </div>
                 </div>
+                <table class="table">
             </article>
             <aside class="col-12 col-lg-4">
                 <div class="card mb-3">
