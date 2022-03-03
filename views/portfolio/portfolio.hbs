@@ -45,7 +45,7 @@
                         <h2 class="h5 mb-0">Assets</h2>
                     </div>
                     
-                    <div class="card-body pb-2 pt-0 px-3 px-md-4">
+                    <div class="card-body pb-2 pt-0 mx-0 px-3">
                         <div class="row p-2 border-bottom">
                                 <div scope="col" class="col-4 col-md ">Name</div>
                                 <div scope="col" class="col">Holdings</div>
@@ -57,8 +57,8 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             {{#each portfolio.assets}}
-                            <li class="list-group-item px-0 py-2 py-md-2 d-flex row align-items-center">
-                                <div class="col-4 col-md">
+                            <li class="list-group-item px-0 d-flex row align-items-center py-2 py-md-2 mx-0">
+                                <div class="col-4 col-md ps-md-0">
                                     <a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="text-dark text-decoration-none d-flex align-items-center">
                                         <img src="{{coin.image}}" class="me-2"alt="Bitcoin" width="34"/>
                                         <div>

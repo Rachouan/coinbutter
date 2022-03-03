@@ -55,7 +55,7 @@
                         <h2 class="h5 mb-0">Transactions</h2>
                     </div>
                     
-                    <div class="card-body pb-2 pt-0 px-3 px-md-4">
+                    <div class="card-body pb-2 pt-0 px-3">
                         <div class="row p-2 border-bottom">
                                 <div scope="col-1" class="col-1"></div>
                                 <div scope="col" class="col">Amount</div>
@@ -65,18 +65,18 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             {{#each transactions}}
-                            <li class="list-group-item px-0 py-2 py-md-2 d-flex row align-items-center">
-                                <div class="col-1"><span class="badge badge-primary bg-primary">{{transactionType}}</span></div>
+                            <li class="list-group-item d-flex row align-items-center py-2 py-md-2 mx-0 px-0">
+                                <div class="col-1 mx-0 px-0"><span class="badge badge-primary bg-primary">{{transactionType}}</span></div>
                                 <div class="col">{{amount}} <span class="text-uppercase text-muted small">{{../coin.symbol}}</span></div>
                                 
                                 <div class="col">&dollar;{{#round2 price}}{{/round2}}</div>
                                 <div class="col">{{note}}</div>
-                                <div align="right" class="col d-flex align-items-center justify-content-between">
+                                <div align="right" class="col d-flex align-items-center justify-content-between pe-0">
                                     {{#DateFormater created}}{{/DateFormater}}
                                     <div class="d-flex">
-                                        <a href="/portfolio/{{../portfolio._id}}/asset/{{../asset._id}}/transactions/{{_id}}/edit" class="btn btn-sm"><img src="/images/assets/edit-cb.svg" width="18"/></a>
+                                        <a href="/portfolio/{{../portfolio._id}}/asset/{{../asset._id}}/transactions/{{_id}}/edit" class="btn px-1 btn-sm"><img src="/images/assets/edit-cb.svg" width="18"/></a>
                                         <form action="/portfolio/{{../portfolio._id}}/asset/{{../asset._id}}/transactions/{{_id}}/delete" method="POST">
-                                            <button type="submit" class="btn btn-sm"><img src="/images/assets/delete-cb.svg" width="18"/></button>
+                                            <button type="submit" class="btn px-1 btn-sm"><img src="/images/assets/delete-cb.svg" width="18"/></button>
                                         </form>
                                     </div>
                                     
