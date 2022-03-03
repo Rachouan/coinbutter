@@ -13,6 +13,9 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     allowed_formats: ['jpg', 'png'],
+    width: 100, 
+    height: 100, 
+    crop: "fill",
     folder: 'coinbutter'
   }
 });
