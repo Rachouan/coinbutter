@@ -14,6 +14,6 @@ module.exports = (hbs) => {
   hbs.registerHelper("round2", amount => amount.toFixed(2));
   hbs.registerHelper("round4", amount => amount.toFixed(4));
   hbs.registerHelper("roundSatochi", amount => amount.toFixed(8));
-  hbs.registerHelper("checkIfUpOrDownFormatted", amount => (amount.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ',')) > 0 ? 'text-success': 'text-danger');
+  //hbs.registerHelper("checkIfUpOrDownFormatted", amount => (amount.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ',')) > 0 ? 'text-success': 'text-danger');
   hbs.registerHelper("DateFormater", date => date.toLocaleDateString("fr")); 
 };

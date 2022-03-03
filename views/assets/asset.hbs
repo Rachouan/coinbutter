@@ -15,8 +15,12 @@
                         <h2 class="display-3 mb-0">&dollar;{{#amountFormatter asset.value}}{{/amountFormatter}}</h2>
                         <canvas class="cb-linechart" width="1024" height="300" data-sparkline="{{coin.sparkline_in_7d.price}}"></canvas>
                     </div>
+                    <div class="d-flex align-items-start justify-content-between">
+                        <div align="right" class="col d-flex align-items-center">
+                        <a href="/portfolio/{{portfolio._id}}/transactions/create?={{coin._id}}" class="btn text-primary">New Transaction</a>
+                    </div>
+                    </div>
                 </div>
-            
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Statistics</h2>
@@ -31,7 +35,7 @@
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Total PnL</p>
-                                <p class="h5">&dollar;{{#checkIfUpOrDownFormatted asset.pnl}}{{/checkIfUpOrDownFormatted}}</p>
+                                <p class="h5 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}">&dollar;{{#amountFormatter asset.pnl}}{{/amountFormatter}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Sell target</p>
@@ -43,27 +47,26 @@
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Transactions</h2>
+                        <table class="table">
                         <thead>
-                            <table class="table">
-                            <thead>
-                                <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Type</th>
-                                </tr>
-                            </thead>
-                            {{#each transactions}}
-                            <tbody>
-                                <tr>
-                                <th scope="row">{{#DateFormater created}}{{/DateFormater}}</th>
-                                <td>{{amount}}</td>
-                                <td>&dollar;{{price}}</td>
-                                <td>{{transactionType}}</td>
-                                </tr>
-                            </tbody>
-                            {{/each}}
-                            </table>
+                            <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Type</th>
+                            </tr>
+                        </thead>
+                        {{#each transactions}}
+                        <tbody>
+                            <tr>
+                            <th scope="row">{{#DateFormater created}}{{/DateFormater}} {{coin.symbol}}</th>
+                            <td>{{amount}}</td>
+                            <td>&dollar;{{price}}</td>
+                            <td>{{transactionType}}</td>
+                            </tr>
+                        </tbody>
+                        {{/each}}
+                        </table>
                     </div>
                 </div>
                 <table class="table">
