@@ -58,12 +58,14 @@
                         <ul class="list-group list-group-flush">
                             {{#each portfolio.assets}}
                             <li class="list-group-item px-0 py-2 py-md-2 d-flex row align-items-center">
-                                <div class="col-4 col-md d-flex align-items-center">
-                                    <img src="{{coin.image}}" class="me-2"alt="Bitcoin" width="34"/>
-                                    <div>
-                                        <h3 class="h6 mb-0 ">{{coin.name}}</h3>
-                                        <p class="mb-0 text-muted text-uppercase"><small>{{coin.symbol}}</small></p>
-                                    </div>
+                                <div class="col-4 col-md">
+                                    <a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="text-dark text-decoration-none d-flex align-items-center">
+                                        <img src="{{coin.image}}" class="me-2"alt="Bitcoin" width="34"/>
+                                        <div>
+                                            <h3 class="h6 mb-0 ">{{coin.name}}</h3>
+                                            <p class="mb-0 text-muted text-uppercase"><small>{{coin.symbol}}</small></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="col">
                                     <div>
@@ -105,9 +107,9 @@
                                             <img src="/images/assets/more.svg" width="18"/>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="{{portfolio.id}}-dropdown">
-                                            <li><a href="/portfolio/{{../portfolio._id}}/asset/{{id}}" class="dropdown-item">Details</a></li>
+                                            <li><a href="/portfolio/{{../portfolio._id}}/asset/{{this._id}}" class="dropdown-item">Details</a></li>
                                             <li>
-                                                <form action="/portfolio/{{../portfolio._id}}/asset/{{id}}/delete" method="POST">
+                                                <form action="/portfolio/{{../portfolio._id}}/asset/{{this._id}}/delete" method="POST">
                                                     <button type="submit" class="dropdown-item text-danger">Delete</button>
                                                 </form>
                                             </li>

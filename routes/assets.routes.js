@@ -16,13 +16,15 @@ router.get("/portfolio/:portfolioId/asset/:assetId", (req, res, next) => {
         const {portfolioId} = req.params;
 
         try{
-            const asset = await Asset.findOne({id:assetId}).populate('coin transactions portfolioId');
+            const asset = await Asset.findOne({_id:assetId,portfolioId:portfolioId}).populate('coin transactions portfolioId');
             const portfolio = await Portfolio.findById(portfolioId).populate({
                 path : 'assets',
                 populate : {
                   path : 'coin'
                 }
             });
+
+            console.log(asset);
 
             let amount = 0;
             let total = 0;
@@ -71,7 +73,7 @@ router.post("/portfolio/:portfolioId/asset/:assetId/delete", (req, res, next) =>
         if(!assetId && !portfolioId) return res.redirect(`/portfolio/${portfolioId}`);
 
         try{
-            await Asset.findOneAndDelete({id:assetId});
+            await Asset.findOneAndDelete({_id:assetId, portfolioId: portfolioId});
             res.redirect(`/portfolio/${portfolioId}`);
         }catch(err){
             res.redirect('/dashboard');
