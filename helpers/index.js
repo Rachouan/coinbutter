@@ -11,5 +11,7 @@ module.exports = (hbs) => {
           return num.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // if value < 1000, nothing to do
       }
   });
+  hbs.registerHelper("round2", amount => amount.toFixed(2));
+  hbs.registerHelper("roundSatochi", amount => amount.toFixed(8));
 
 };
