@@ -28,7 +28,7 @@ app.set('view engine', 'hbs');
 const projectName = "coinbutter";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
-app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
+app.locals.title = `Coinbutter`;
 
 app.use((req,res,next) => {
     res.locals.connectedUser = req.session.user ? req.session.user : false;
