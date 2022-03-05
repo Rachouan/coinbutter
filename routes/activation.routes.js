@@ -1,9 +1,39 @@
 const router = require("express").Router();
-const { render } = require("sass");
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 const Activation = require("../models/Activation.model.js");
 const User = require("../models/User.model.js");
 
+router.post("/activate/resend", (req, res, next) => {
+    const {userId} = req.body;
 
+    //if(!userId) return res.redirect('/dashboard');
+    console.log(userId);
+    (async () => {
+
+        try{
+            const activateDoc = await Activation.findOne({user:userId}).populate('user');
+            const msg = {
+                to: activateDoc.user.email,
+                from: process.env.SENDGRID_EMAIL,
+                templateId: 'd-383e5812b2d947bc99ba64014ba4e3e0',
+                dynamic_template_data: {
+                    code: activateDoc.code,
+                    id: activateDoc._id,
+                },
+            };
+
+            await sgMail.send(msg);
+            return res.redirect('/dashboard');
+        }catch(err){
+            console.log(err);
+            return res.redirect('/dashboard');
+        }
+        
+    })();
+    
+});
 router.get("/activate", (req, res, next) => {
    
     (async () => {

@@ -50,7 +50,7 @@
 {{#if connectedUser}}
 {{#unless connectedUser.active}}<div class="container my-2">
     <div class="alert alert-warning text-center py-2" role="alert">
-    <strong>Please confirm your email address</strong> so your account doesn't get deactivated. <a href="/activate" style="color: #996018;">Confirm Email Address</a>
+    <strong>Please confirm your email address</strong> so your account doesn't get deactivated. <form method="post" action="/activate/resend" class="d-inline-flex"><input type="hidden" name="userId" value="{{connectedUser.id}}"/><button type="submit" class="btn text-dark text-decoration-underline">Resend Confirmation</button></form>
     </div>
 {{/unless}}
 {{/if}}
