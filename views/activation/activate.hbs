@@ -1,11 +1,19 @@
 <section class="py-5 bg-light">
    <div class="container my-md-4">
-      <div class="text-center mb-4">
-        <p class="text-center display-1">🎉</p>
-        <h2 class="h1">You're account has been activated!</h2>
-        <p class="lead">Now go and create some portfolios</p>
-        <a href="/dashboard" class="btn btn-dark">Go To Dashboard</a>
-      </div>
+      {{#unless success}}
+         <div class="text-center mb-4">
+         <p class="text-center display-1">🎉</p>
+         <h2 class="h1">You're account has been activated!</h2>
+         <p class="lead">Now go and create some portfolios</p>
+         <a href="/dashboard" class="btn btn-primary">Go To Dashboard</a>
+         </div>
+      {{else}}
+         <div class="text-center mb-4">
+         <h2 class="h1">You're account was already activated</h2>
+         <p class="lead">Now go and create some portfolios</p>
+         <a href="/dashboard" class="btn btn-dark">Go To Dashboard</a>
+         </div>
+      {{/unless}}
       
    </div>
 </section>

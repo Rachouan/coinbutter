@@ -12,18 +12,18 @@ router.get("/activate", (req, res, next) => {
             const {activate} = req.query;
 
             if(activate) {
-                const activateDoc = await Activation.findOne({id:activate})
+                const activateDoc = await Activation.findOne({_id:activate})
                 console.log(activateDoc);
                 if(!activateDoc){
                     return res.render('activation/activate',{errors:{message:'You code is not correct.'}});
                 }
 
                 if(activateDoc.active){
-                    return res.redirect('/dashboard');
+                    return res.render('activation/activate',{success:{message:"Your account is already activated;"}});
                 }
                 
-                await Activation.findByIdAndUpdate({_id:activateDoc._id},{active:true});
                 await User.findOneAndUpdate({_id:activateDoc.user},{active:true});
+                await Activation.findByIdAndUpdate({_id:activateDoc._id},{active:true});
                 
                 if(req.session.user){
                     req.session.user.active = true;
