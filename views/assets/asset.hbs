@@ -39,11 +39,11 @@
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Avg Buy price</p>
-                                <p class="h5">&dollar;{{#roundSatochi asset.avgBuyPrice}}{{/roundSatochi}}</p>
+                                <p class="h5">&dollar;{{#round2 asset.avgBuyPrice}}{{/round2}}</p>
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Total PnL</p>
-                                <p class="h5 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}">&dollar;{{#roundSatochi asset.pnl}}{{/roundSatochi}}</p>
+                                <p class="h5 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}">&dollar;{{#round2 asset.pnl}}{{/round2}}</p>
                             </div>
                         </div>
                     </div>

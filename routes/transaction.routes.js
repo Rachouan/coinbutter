@@ -12,6 +12,9 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // Routes
+
+// Create
+
 router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     const {portfolioId} = req.params;
     Coin.find().sort('market_cap_rank')
@@ -85,7 +88,53 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     
 });
 
+// Edit
 
+router.get('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (req, res) => {
+    const {portfolioId, assetId, transactionId} = req.params;
+
+    ( async () => {
+        let coins = await Coin.find().sort('market_cap_rank')
+
+        Transaction.findOne({_id:transactionId}) 
+        .then(transaction => {
+
+            transaction.price = transaction.total / transaction.amount; 
+
+            res.render("transactions/edit", {portfolioId, assetId, transactionId, transaction, coins})
+        })
+    })();
+    
+}); 
+
+router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (req, res) => {
+
+    ( async () => {
+
+        const {portfolioId, assetId, transactionId} = req.params;
+        const {price, currency, amount, total, transactionType, note} = req.body; 
+        let {created} = req.body;
+
+        try{
+
+            let asset = await Asset.findOne({_id:assetId})
+    
+            Transaction.findOneAndUpdate({_id:transactionId},{price, currency, amount, total, transactionType, note, created},{new: true}).populate('asset')
+            .then(transac => res.json(transac))
+
+            console.log('UPDATING TRANSACTION');
+
+            //const asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
+            
+            //res.redirect(`/portfolio/${portfolio._id}/asset/${asset._id}`, {portfolioId, assetId, transactionId, transaction:{price, currency, amount, total, transactionType, note}});
+
+        }catch(err){
+            console.log(err);
+        }
+    })()
+});
+
+// Delete
 
 router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',isLoggedIn, (req, res) => {
 
@@ -111,11 +160,9 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',is
             console.log(err);
             res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
         }
-
     })();
-
-    
 });
+
 // Module export
 
 module.exports = router;

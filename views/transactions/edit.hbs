@@ -1,9 +1,8 @@
-
 <section class="py-3 py-md-4 bg-light">
    <div class="container sign-container my-md-4">
       <div class="text-center mb-4">
-        <h2>New Transaction</h2>
-        <p class="lead">Add your crypto transactions.</p>
+        <h2>Update Transaction</h2>
+        <p class="lead">Update this transaction.</p>
       </div>
       <div class="card rounded border-0 shadow-sm transactionForm">
         <div class="nav mt-3 w-100 d-inline-flex nav-tabs mx-auto align-items-center justify-content-center" id="nav-tab" role="tablist">
@@ -14,7 +13,7 @@
           
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
-              <form action="/portfolio/{{portfolioId}}/transactions/create" method="POST">
+              <form action="/portfolio/{{portfolioId}}/asset/{{assetId}}/transactions/{{transactionId}}/edit" method="POST">
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="buy"/>
                 <div class="form-floating mb-3">
@@ -26,30 +25,30 @@
                   <label for="coinSelect">Coin</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="price" name="price" placeholder="Price" value="{{coins.0.current_price}}" required="required" min="0">
+                  <input type="text" class="form-control" id="price" name="price" value="{{transaction.price}}" required="required" min="0">
                   <label for="price">Price</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="amount" name="amount" placeholder="Price" required="required" min="0">
+                  <input type="number" class="form-control" id="amount" name="amount" value="{{transaction.amount}}" required="required" min="0">
                   <label for="amount">Amount</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="total" name="total" placeholder="Price">
+                  <input type="number" class="form-control" id="total" name="total" value="{{transaction.total}}">
                   <label for="total">Total</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="date" class="form-control" id="created" name="created" placeholder="Price">
+                  <input type="date" class="form-control" id="created" name="created" value="{{transaction.created}}">
                   <label for="created">Transaction Date</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="note"  name="note" style="height: 100px"></textarea>
+                  <textarea class="form-control" placeholder="Leave a comment here" id="note"  name="note" value="{{transaction.note}}" style="height: 100px"></textarea>
                   <label for="note">Note</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Create Transaction</button>
+                <button type="submit" class="btn btn-primary w-100">Update Transaction</button>
               </form>
             </div>
             <div class="tab-pane fade" id="nav-sell" role="tabpanel" aria-labelledby="nav-sell-tab">
-              <form action="/portfolio/{{portfolioId}}/transactions/create" method="POST">
+              <form action="/portfolio/{{portfolioId}}/asset/{{assetId}}/transactions/{{transactionId}}/edit" method="POST">
                 <input type="hidden" class="d-none" name="currency" value="USD"/>
                 <input type="hidden" class="d-none" id="transactionType" name="transactionType" value="sell"/>
                 <div class="form-floating mb-3">
@@ -61,26 +60,26 @@
                   <label for="floatingSelect">Currency</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="price" name="price" placeholder="Price" value="{{coins.0.current_price}}">
+                <input type="text" class="form-control" id="price" name="price" value="{{transaction.price}}" required="required" min="0">
                   <label for="price">Price</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="amount" name="amount" placeholder="Price">
+                  <input type="number" class="form-control" id="amount" name="amount" value="{{transaction.amount}}" required="required" min="0">
                   <label for="amount">Amount</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="total" name="total" placeholder="Price">
+                  <input type="number" class="form-control" id="total" name="total" value="{{transaction.total}}">
                   <label for="total">Total</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input type="date" class="form-control" id="created" name="created" placeholder="Price">
+                  <input type="date" class="form-control" id="created" name="created" value="{{transaction.created}}">
                   <label for="created">Transaction Date</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="note"  name="note" style="height: 100px"></textarea>
+                  <textarea class="form-control" placeholder="Leave a comment here" id="note"  name="note" value="{{transaction.note}}" style="height: 100px"></textarea>
                   <label for="note">Note</label>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Create Transaction</button>
+                <button type="submit" class="btn btn-primary w-100">Update Transaction</button>
               </form>
             </div>
           </div>

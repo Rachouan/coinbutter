@@ -10,7 +10,7 @@ const transactionSchema = new Schema(
     total: Number,
     transactionType: { type: String, enum: ['buy', 'sell', 'transfer in', 'transfer out'] },
     note: String,
-    created: { type: Date, default: Date.now() },
+    created: { type: Date, default: Date.now()},
   },
   {
     timestamps: true
