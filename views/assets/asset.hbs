@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-6 col-md">
                                 <p class="text-muted mb-2">Total PnL</p>
-                                <p class="h5 {{#checkIfUpOrDown}}{{/checkIfUpOrDown}}">&dollar;{{#round2 asset.pnl}}{{/round2}}</p>
+                                <p class="h5 {{#checkIfUpOrDown asset.pnl}}{{/checkIfUpOrDown}}">&dollar;{{#round2 asset.pnl}}{{/round2}}</p>
                             </div>
                         </div>
                     </div>
@@ -88,11 +88,11 @@
                 </div>
             </article>
             <aside class="col-12 col-lg-4">
-                <div class="card mb-3">
+                {{!-- <div class="card mb-3">
                     <div class="card-body">
                         <h2 class="lead">Quick Convert</h2>
                     </div>
-                </div>
+                </div> --}}
                 <div class="card mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Market stats</h2>
@@ -106,12 +106,12 @@
                                 <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
                             </div>
                             <div class="col-6 col-md">
-                                <p class="text-muted mb-2">Market cap</p>
-                                <p class="h5">€677.7B</p>
+                                <p class="text-muted mb-2">Current Price</p>
+                                <p class="h5">&dollar;{{#amountFormatter coin.current_price}}{{/amountFormatter}}</p>
                             </div>
                             <div class="col-6 col-md">
-                                <p class="text-muted mb-2">Market cap</p>
-                                <p class="h5">€677.7B</p>
+                                <p class="text-muted mb-2">24h variation</p>
+                                <p class="h5 {{#checkIfUpOrDown coin.price_change_percentage_24h}}{{/checkIfUpOrDown}}">{{coin.price_change_percentage_24h}}%</p>
                             </div>
                         </div>
                     </div>
