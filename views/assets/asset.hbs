@@ -57,20 +57,18 @@
                     
                     <div class="card-body pb-2 pt-0 px-3">
                         <div class="row p-2 border-bottom">
-                                <div scope="col-1" class="col-1"></div>
                                 <div scope="col" class="col">Amount</div>
                                 <div scope="col" class="col">Price</div>
-                                <div scope="col" class="col">Note</div>
+                                <div scope="col" class="col d-none d-lg-block">Note</div>
                                 <div scope="col" class="col">Date</div>
                         </div>
                         <ul class="list-group list-group-flush">
                             {{#each transactions}}
                             <li class="list-group-item d-flex row align-items-center py-2 py-md-2 mx-0 px-0">
-                                <div class="col-1 mx-0 px-0"><span class="badge badge-primary bg-primary">{{transactionType}}</span></div>
-                                <div class="col">{{amount}} <span class="text-uppercase text-muted small">{{../coin.symbol}}</span></div>
+                                <div class="col">{{amount}} <span class="text-uppercase text-muted small">{{../coin.symbol}}</span><span class="badge badge-primary bg-primary ms-1">{{transactionType}}</span></div>
                                 
                                 <div class="col">&dollar;{{#round2 price}}{{/round2}}</div>
-                                <div class="col">{{note}}</div>
+                                <div class="col d-none d-lg-block">{{note}}</div>
                                 <div align="right" class="col d-flex align-items-center justify-content-between pe-0">
                                     {{#DateFormater created}}{{/DateFormater}}
                                     <div class="d-flex">
@@ -88,28 +86,23 @@
                 </div>
             </article>
             <aside class="col-12 col-lg-4">
-                {{!-- <div class="card mb-3">
-                    <div class="card-body">
-                        <h2 class="lead">Quick Convert</h2>
-                    </div>
-                </div> --}}
-                <div class="card mb-3">
+                <div class="card border-0 shadow-sm mb-3">
                     <div class="card-body p-md-4">
                         <h2 class="h5 mb-3">Market stats</h2>
                         <div class="row">
-                            <div class="col-6 col-md">
+                            <div class="col-6">
                                 <p class="text-muted mb-2">Ranking</p>
                                 <p class="h5">{{coin.market_cap_rank}}</p>
                             </div>
-                            <div class="col-6 col-md">
+                            <div class="col-6">
                                 <p class="text-muted mb-2">Market cap</p>
                                 <p class="h5">&dollar;{{#amountFormatter coin.market_cap}}{{/amountFormatter}}</p>
                             </div>
-                            <div class="col-6 col-md">
+                            <div class="col-6">
                                 <p class="text-muted mb-2">Current Price</p>
                                 <p class="h5">&dollar;{{#amountFormatter coin.current_price}}{{/amountFormatter}}</p>
                             </div>
-                            <div class="col-6 col-md">
+                            <div class="col-6">
                                 <p class="text-muted mb-2">24h variation</p>
                                 <p class="h5 {{#checkIfUpOrDown coin.price_change_percentage_24h}}{{/checkIfUpOrDown}}">{{coin.price_change_percentage_24h}}%</p>
                             </div>
