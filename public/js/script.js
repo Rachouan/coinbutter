@@ -1,4 +1,5 @@
 const transactionForm = document.querySelectorAll('.transactionForm form');
+const darkmode = document.querySelector('.darkmode-switch');
 
 function updateTotal(price,amount,total){
   const totalValue = price.value * amount.value;
@@ -33,6 +34,10 @@ document.addEventListener(
       slidesPerView: 'auto',
       spaceBetween: 10,
     });
+
+    darkmode.addEventListener('change',e =>{
+      console.log(e.currentTarget);
+    })
 
     transactionForm.forEach(form =>{
       const coinSelection = form.querySelector('.coinSelect');

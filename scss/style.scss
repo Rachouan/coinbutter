@@ -57,6 +57,8 @@ $border-radius-lg:            .6rem !default;
 
 $component-active-bg:         $dark !default;
 
+$body-bg: $light;
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 
@@ -69,6 +71,104 @@ $form-floating-input-padding-b:   .6rem !default;
 $form-floating-label-opacity:     .65 !default;
 $form-floating-label-transform:   scale(.85) translateY(-.5rem) translateX(.15rem) !default;
 $form-floating-transition:        opacity .1s ease-in-out, transform .1s ease-in-out !default;
+
+
+:root[data-theme=dark] {
+    --bs-blue: #0d6efd;
+    --bs-indigo: #6610f2;
+    --bs-purple: #3e275c;
+    --bs-pink: #d63384;
+    --bs-red: #e34849;
+    --bs-orange: #FF9C41;
+    --bs-yellow: #ff9e2a;
+    --bs-green: #169b3e;
+    --bs-teal: #34b991;
+    --bs-cyan: #19b8d8;
+    --bs-white: #fff;
+    --bs-gray: #7d766c;
+
+    --bs-gray-dark: #fff;
+    --bs-gray-100: #1d1610;
+    --bs-gray-200: #24201d;
+    --bs-gray-300: #575049;
+    --bs-gray-400: #7d766c;
+    --bs-gray-500: #bdb7ad;
+    --bs-gray-600: #dad5ce;
+    --bs-gray-700: #e6e3de;
+    --bs-gray-800: #efece9;
+    --bs-gray-900: #faf9f8;
+    --bs-primary: #FF9C41;
+    --bs-secondary: #7d766c;
+    --bs-success: #169b3e;
+    --bs-info: #19b8d8;
+    --bs-warning: #ff9e2a;
+    --bs-danger: #e34849;
+    --bs-light: #faf9f8;
+    --bs-darker: #e6e3de;
+    --bs-dark: $white;
+    --bs-primary-rgb: 255, 156, 65;
+    --bs-secondary-rgb: 125, 118, 108;
+    --bs-success-rgb: 22, 155, 62;
+    --bs-info-rgb: 25, 184, 216;
+    --bs-warning-rgb: 255, 158, 42;
+    --bs-danger-rgb: 227, 72, 73;
+    --bs-light-rgb: 250, 249, 248;
+    --bs-darker-rgb: 230, 227, 222;
+    --bs-dark-rgb: 36, 32, 29;
+    --bs-white-rgb: 255, 255, 255;
+    --bs-black-rgb: 29, 22, 16;
+    --bs-body-color-rgb: 36, 32, 29;
+    --bs-body-bg-rgb: 255, 255, 255;
+    --bs-font-sans-serif: ballinger, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.5;
+    --bs-body-color: #ffffff;
+    --bs-body-bg: #1d1610;
+
+    .bg-white,.bg-dark,.bg-light,.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+        background: #1d1610 !important;
+    }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{
+        background-color: #575049;
+        color: #ffffff;
+    }
+
+    .card,.list-group-item,.dropdown-menu,.dropdown-item,.form-control,.form-select,.select2-dropdown,.select2-container--default .select2-selection--single{
+        background: #24201d;
+        color:#ffffff !important;
+    }
+    .card-header{
+        background: #24201d !important;
+
+        color:#ffffff !important;
+    }
+    
+    .text-dark,.select2-container--default .select2-selection--single .select2-selection__rendered{
+        color:#ffffff !important;
+    }
+    .text-muted{
+        color:#bdb7ad !important;
+    }
+    .border-bottom,.border-top,.border-end,.border-start,.card-header,.form-control,.form-select,.select2-dropdown{
+        border-color: #575049 !important;
+    }
+    .nav-link{
+        color:#ffffff !important;
+    }
+
+    .btn-outline-darker{
+        color: #e6e3de;
+        border-color: #575049;
+    }
+    .btn-outline-darker:hover{
+        color: #e6e3de;
+        background: #7d766c;
+    }
+}
 
 body{
     letter-spacing: -0.03rem;

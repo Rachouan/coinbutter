@@ -22,18 +22,20 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
 
     const { email,firstName,lastName, existingImage } = req.body;
     const { userId } = req.params;
+    let {darkmode} = req.body;
     
     (async () =>{
 
         try{
 
             let profileImage = req.file ? req.file.path : existingImage;
+            darkmode = darkmode === 'on' ? true:false;
 
             console.log(profileImage);
 
             if(!email) throw 'Please provide your email.';
 
-            const user = await User.findOneAndUpdate({_id:userId},{email,firstName,lastName,profileImage}, {new: true});
+            const user = await User.findOneAndUpdate({_id:userId},{email,firstName,lastName,profileImage,darkmode}, {new: true});
             console.log(user);
             req.session.user = {
                 id:user._id,
@@ -44,7 +46,7 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
             };
             res.locals.connectedUser = req.session.user;
 
-            res.render("profile/edit", {userId,user:{ email,firstName,lastName,profileImage },success:{message:'Successfully updated your profile.'}});
+            res.render("profile/edit", {userId,user:{ email,firstName,lastName,profileImage,darkmode },success:{message:'Successfully updated your profile.'}});
 
         }catch(err){
             console.log(err);
