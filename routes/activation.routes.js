@@ -23,7 +23,7 @@ router.get("/activate", (req, res, next) => {
                 }
                 
                 await Activation.findByIdAndUpdate({_id:activateDoc._id},{active:true});
-                const user = await User.findOneAndUpdate({_id:activateDoc.user},{active:true});
+                await User.findOneAndUpdate({_id:activateDoc.user},{active:true});
                 
                 if(req.session.user){
                     req.session.user.active = true;

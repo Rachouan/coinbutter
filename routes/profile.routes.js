@@ -34,7 +34,7 @@ router.post("/:userId/edit", fileUploader.single('profile-picture'), (req, res, 
             if(!email) throw 'Please provide your email.';
 
             const user = await User.findOneAndUpdate({_id:userId},{email,firstName,lastName,profileImage}, {new: true});
-        
+            console.log(user);
             req.session.user = {
                 id:user._id,
                 name:user.firstName,
