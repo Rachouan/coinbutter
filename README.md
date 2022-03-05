@@ -9,7 +9,9 @@ The main features are :
 - Email profile activation
 - Edit your profile, add a picture
 - Having multiple portfolios and be able to see the overview of it
+    [Portfolios]("./public/images/readme/portfolios.png")
 - Track the value of each asset inside a portfolio with all it's statistic (ie PnL or Average Buy Price)
+    [Asset]("./public/images/readme/asset.png")
 - Update or Delete old transactions
 
 
@@ -33,7 +35,7 @@ If you'd like to view my project in your browser:
 -  `cd coinbutter`
 -  `code .`
 
-Then to run the server locally:
+Then to run it locally:
 
 - `npm install`
 - `npm run dev`
