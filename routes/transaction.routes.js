@@ -7,20 +7,11 @@ const Asset = require("../models/Asset.model.js");
 const User = require("../models/User.model.js");
 const Transaction = require("../models/Transaction.model.js");
 const Coin = require("../models/Coin.model.js");
+const helper = require("../helpers/helpers.js");
 
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-
-const updateAssetAmount = async (asset) => {
-    console.log('updating asset amount = ',asset);
-    let total = asset.transactions.reduce((a, b) => {
-        console.log(b.amount);
-        return a += b.type === 'buy' ? -b.amount : b.amount
-    },0);
-    console.log(total);
-    return await Asset.findOneAndUpdate({_id:asset.id},{amount:total});
-}
 
 router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     const {portfolioId} = req.params;
@@ -69,24 +60,7 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
             })
 
             const updatedAsset = await Asset.findOneAndUpdate({_id:asset.id},{$push: { transactions: transaction.id  }},{new:true}).populate('coin transactions');
-            await updateAssetAmount(updatedAsset);
-            // let newAmount = asset.amount;
-
-            // switch (transaction.transactionType) {
-            //     case 'sell':
-            //         newAmount -= transaction.amount;
-            //         break;
-            //     default :
-            //         newAmount += transaction.amount;
-            // }
-            
-            // const updatedAsset = await Asset.findByIdAndUpdate(asset.id,
-            //     {
-            //         amount:newAmount,
-            //         $push: { transactions: transaction.id  }
-            //     }
-            // );
-                
+            await helper.updateAssetAmount(updatedAsset);
             res.redirect(`/portfolio/${portfolio._id}`);
 
         }catch(err){
@@ -124,10 +98,12 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (re
         const {price, currency, amount, total, transactionType, note} = req.body; 
         let {created} = req.body;
 
+        created = !created? Date.now():created;
+
         try{
             await Transaction.findOneAndUpdate({_id:transactionId},{price, currency, amount, total, transactionType, note, created});
             let asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
-            await updateAssetAmount(asset);
+            await helper.updateAssetAmount(asset);
             res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
 
         }catch(err){
@@ -136,7 +112,6 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (re
     })()
 });
 
-// Delete
 
 router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',isLoggedIn, (req, res) => {
 
@@ -150,7 +125,7 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',is
             const asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
             console.log('Updating asset => ',asset.transactions.length);
             if(asset.transactions.length > 0) { 
-                await updateAssetAmount(asset);
+                await helper.updateAssetAmount(asset);
                 return res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
             }
             
