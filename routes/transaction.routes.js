@@ -11,9 +11,16 @@ const Coin = require("../models/Coin.model.js");
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-// Routes
 
-// Create
+const updateAssetAmount = async (asset) => {
+    console.log('updating asset amount = ',asset);
+    let total = asset.transactions.reduce((a, b) => {
+        console.log(b.amount);
+        return a += b.type === 'buy' ? -b.amount : b.amount
+    },0);
+    console.log(total);
+    return await Asset.findOneAndUpdate({_id:asset.id},{amount:total});
+}
 
 router.get('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
     const {portfolioId} = req.params;
@@ -42,8 +49,9 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
             if(!asset){
                 console.log('Create New asset')
                 asset = await Asset.create({coin,amount:0,portfolioId})
-                portfolio.assets.push(asset.id);
-                await Portfolio.findOneAndUpdate({id:portfolio.id},portfolio);   
+                //portfolio.assets.push(asset.id);
+                await Portfolio.findOneAndUpdate({_id:portfolioId},{$push: { assets: asset.id  }});
+                //await Portfolio.findOneAndUpdate({id:portfolioId},{assets:portfolio.assets});   
                 console.log(portfolio);
             }
 
@@ -60,22 +68,24 @@ router.post('/:portfolioId/transactions/create',isLoggedIn, (req, res) => {
                 created:created
             })
 
-            let newAmount = asset.amount;
+            const updatedAsset = await Asset.findOneAndUpdate({_id:asset.id},{$push: { transactions: transaction.id  }},{new:true}).populate('coin transactions');
+            await updateAssetAmount(updatedAsset);
+            // let newAmount = asset.amount;
 
-            switch (transaction.transactionType) {
-                case 'sell':
-                    newAmount -= transaction.amount;
-                    break;
-                default :
-                    newAmount += transaction.amount;
-            }
+            // switch (transaction.transactionType) {
+            //     case 'sell':
+            //         newAmount -= transaction.amount;
+            //         break;
+            //     default :
+            //         newAmount += transaction.amount;
+            // }
             
-            const updatedAsset = await Asset.findByIdAndUpdate(asset.id,
-                {
-                    amount:newAmount,
-                    $push: { transactions: transaction.id  }
-                }
-            );
+            // const updatedAsset = await Asset.findByIdAndUpdate(asset.id,
+            //     {
+            //         amount:newAmount,
+            //         $push: { transactions: transaction.id  }
+            //     }
+            // );
                 
             res.redirect(`/portfolio/${portfolio._id}`);
 
@@ -94,15 +104,14 @@ router.get('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (req
     const {portfolioId, assetId, transactionId} = req.params;
 
     ( async () => {
-        let coins = await Coin.find().sort('market_cap_rank')
-
-        Transaction.findOne({_id:transactionId}) 
-        .then(transaction => {
-
+        try{
+            let coins = await Coin.find().sort('market_cap_rank')
+            let transaction = await Transaction.findOne({_id:transactionId});
             transaction.price = transaction.total / transaction.amount; 
-
             res.render("transactions/edit", {portfolioId, assetId, transactionId, transaction, coins})
-        })
+        }catch(err){
+            res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
+        }
     })();
     
 }); 
@@ -116,17 +125,10 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/edit', (re
         let {created} = req.body;
 
         try{
-
-            let asset = await Asset.findOne({_id:assetId})
-    
-            Transaction.findOneAndUpdate({_id:transactionId},{price, currency, amount, total, transactionType, note, created},{new: true}).populate('asset')
-            .then(transac => res.json(transac))
-
-            console.log('UPDATING TRANSACTION');
-
-            //const asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
-            
-            //res.redirect(`/portfolio/${portfolio._id}/asset/${asset._id}`, {portfolioId, assetId, transactionId, transaction:{price, currency, amount, total, transactionType, note}});
+            await Transaction.findOneAndUpdate({_id:transactionId},{price, currency, amount, total, transactionType, note, created});
+            let asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
+            await updateAssetAmount(asset);
+            res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
 
         }catch(err){
             console.log(err);
@@ -148,8 +150,7 @@ router.post('/:portfolioId/asset/:assetId/transactions/:transactionId/delete',is
             const asset = await Asset.findOne({_id:assetId}).populate('coin transactions');
             console.log('Updating asset => ',asset.transactions.length);
             if(asset.transactions.length > 0) { 
-                let total = asset.transactions.reduce((a, b) => a += b.type === 'buy' ? -b.amount : b.amount,0);
-                await Asset.findOneAndUpdate({_id:assetId},{amount:total});
+                await updateAssetAmount(asset);
                 return res.redirect(`/portfolio/${portfolioId}/asset/${assetId}`);
             }
             

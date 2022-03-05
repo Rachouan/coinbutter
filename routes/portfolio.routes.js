@@ -78,10 +78,10 @@ router.get('/:portfolioId', (req, res, next) => {
 
       portfolio.total = helper.amountFormatter(portfolioTotal);
 
-      //Total Value in BTC
-      Coin.findOne({id:"bitcoin"}).then((btc) => {
-        portfolio.total_b = (portfolioTotal / btc.current_price)
-      })
+      // //Total Value in BTC
+      // Coin.findOne({id:"bitcoin"}).then((btc) => {
+      //   portfolio.total_b = (portfolioTotal / btc.current_price)
+      // })
 
       res.render('portfolio/portfolio',{portfolio})
     })
