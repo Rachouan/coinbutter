@@ -1,5 +1,8 @@
 const transactionForm = document.querySelectorAll('.transactionForm form');
-const darkmode = document.querySelector('.darkmode-switch');
+const darkmode = document.querySelectorAll('.darkmode-switch');
+const root = document.querySelector(':root');
+const storage = window.localStorage;
+let theme = storage.getItem('theme') || 'light';
 
 function updateTotal(price,amount,total){
   const totalValue = price.value * amount.value;
@@ -28,6 +31,9 @@ $(document).ready(function() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+
+    root.dataset.theme = theme;
+    feather.replace();
     
     const swiper = new Swiper('.swiper', {
       // Default parameters
@@ -35,8 +41,19 @@ document.addEventListener(
       spaceBetween: 10,
     });
 
-    darkmode.addEventListener('change',e =>{
-      console.log(e.currentTarget);
+    darkmode.forEach(mode => {
+      
+      if(theme === 'light'){
+        if(mode.getAttribute('id') === 'darkmodeoff') mode.checked = true;
+      }else if(theme === 'dark'){
+        if(mode.getAttribute('id') === 'darkmodeon') mode.checked = true;
+      }
+
+      mode.addEventListener('change',e =>{
+        theme = e.currentTarget.value.toLowerCase() === 'on' ? 'dark':'light'; 
+        root.dataset.theme = theme;
+        storage.setItem('theme',theme);
+      })
     })
 
     transactionForm.forEach(form =>{

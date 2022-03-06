@@ -21,13 +21,31 @@
                 <li class="nav-item  mx-2">
                     <a class="nav-link" href="/help">Help?</a>
                 </li>
+                <div class="d-flex align-items-center justify-content-between me-2">
+                    <div class="d-flex align-items-center">
+                        <div class="darkmode-switcher">
+                            <input class="darkmode-switch" type="radio" name="darkmode" id="darkmodeoff" value="off">
+                            <label class="darkmode-icon"  for="darkmodeoff">
+                                <i data-feather="sun"></i>
+                                <span class="d-none">on</span>
+                            </label>
+                        </div>
+                        <div class="darkmode-switcher">
+                            <input class="darkmode-switch" type="radio" name="darkmode" id="darkmodeon" value="on">
+                            <label class="darkmode-icon" for="darkmodeon">
+                                <i data-feather="moon"></i>
+                                <span class="d-none">off</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 {{#if connectedUser}}
                 <li class="nav-item dropdown mx-2">
                 <a class="nav-link dropdown-toggle d-inline-flex align-items-center" href="/profile/{{connectedUser.id}}/edit" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{connectedUser.image}}" alt="user profile picture" class="m-0 me-1 rounded" width="25"/>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="/profile/{{connectedUser.id}}/edit">Profile Settings</a></li>
+                    <li><a class="dropdown-item border-bottom" href="/profile/{{connectedUser.id}}/edit">Profile Settings</a></li>
                     <li>
                     <form action="/auth/signout" method="post">
                         <button class="dropdown-item text-danger">Sign Out</button>

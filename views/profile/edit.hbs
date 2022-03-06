@@ -31,10 +31,7 @@
                 <input type="email" class="form-control shadow-sm" id="email" name="email" placeholder="Email" value="{{user.email}}" required>
                 <label for="email">Email address *</label>
             </div>
-            <div class="form-check form-switch mb-3">
-               <input class="form-check-input darkmode-switch" type="checkbox" name="darkmode" role="switch" id="flexSwitchCheckChecked" {{#if user.darkmode}}checked{{/if}}>
-               <label class="form-check-label" for="flexSwitchCheckChecked">Darkmode</label>
-            </div>
+            
             <button type="submit" class="btn btn-primary w-100">Save</button>
          </form>
       </div>
